@@ -1,0 +1,94 @@
+﻿<Page
+    x:Class="TafeBuddy_SRV_desktop_App.View.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TafeBuddy_SRV_desktop_App.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <!--Main Stack Panel-->
+        <StackPanel Background="#FFBE1428">
+            <!--Header stack pannel-->
+            <StackPanel Background="#FFBE1428" BorderThickness="0,0,0,3" BorderBrush="#FFBE1428" Padding="10,5,10,5" Margin="0,20,0,0" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <!-- Logo -->
+                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="30,0,0,0">
+                        <Image x:Name="image" Source="ms-appx:///Images/logo4.png" Height="23" HorizontalAlignment="Left" Margin="0,0,0,-6"/>
+                        <TextBlock x:Name="textBlock"  Text="TAFE Buddy" Foreground="White" FontFamily="Impact" FontSize="24" VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="welcomeTxtBlock" Foreground="White" Text="Welcome, Kathryn Fieg" Margin="0,0,0,-8"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0">
+                            <HyperlinkButton Name="logoutHyperlink" Content="Logout" Foreground="White" FontWeight="SemiBold" FontSize="12" HorizontalAlignment="Right" Click="LogoutHyperlink_Click" />
+                            <Image x:Name="logOutImage" Source="/Images/Icons/logoff.png" Height="10" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel><!-- Header stack pannel-->
+            
+            <!--User Details stack panel-->
+            <StackPanel Orientation="Horizontal" Width="1030" Margin="0,30,0,0" Padding="30,0,0,0">
+                <StackPanel Margin="0,0,20,0">
+                    <Image Source="/Images/user2.png" Height="150" />
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom">
+                    <TextBlock x:Name="userNameTxtBlk" Text="FIEG, Kathryn" FontSize="40" Foreground="White" />
+                    <TextBlock x:Name="userIdTxtBlk" Text="001061267" FontSize="20" Foreground="White" />
+                </StackPanel>
+            </StackPanel>
+            <!--end of user details stack panel-->
+
+            <!--Menu items WrapPanel panel-->
+            <ScrollViewer HorizontalAlignment="Center" Height="450" VerticalScrollBarVisibility="Hidden" Margin="0,20,0,20" >
+                <controls:WrapPanel Name="VerticalWrapPanel"
+                                    VerticalSpacing="10" HorizontalSpacing="20" 
+                                    Orientation="Horizontal" HorizontalAlignment="Center" 
+                                    Margin="0,50,0,0">
+
+                    <Button Width="200" Height="250" Foreground="White">
+                        <StackPanel>
+                            <Image Source="/Images/Icons/classfinder.png" Width="100" Height="100" />
+                            <TextBlock Text="Class Finder" HorizontalAlignment="Center" FontSize="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Width="200" Height="250" Foreground="White">
+                        <StackPanel>
+                            <Image Source="/Images/Icons/qualmaintain.png" Width="100" Height="100" />
+                            <TextBlock Text="Qualification" HorizontalAlignment="Center"  FontSize="20" Margin="0,0,0,-6" />
+                            <TextBlock Text="Maintenance" HorizontalAlignment="Center" FontSize="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Width="200" Height="250" Foreground="White" >
+                        <StackPanel>
+                            <Image Source="/Images/Icons/web.png" Width="100" Height="100" />
+                            <TextBlock Text="ITWorks Web" HorizontalAlignment="Center"  FontSize="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button Width="200" Height="250"  Foreground="White">
+                        <StackPanel>
+                            <Image Source="/Images/Icons/timetable.png" Width="100" Height="100" />
+                            <TextBlock Text="Student Timetable" HorizontalAlignment="Center"  FontSize="20" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="studentResultsViewBtn" Width="200" Height="250" Foreground="White" Click="StudentResultsViewBtn_Click">
+                        <StackPanel>
+                            <Image Source="/Images/Icons/srv.png" Width="100" Height="100" />
+                            <TextBlock Text="Student Results View" HorizontalAlignment="Center"  FontSize="20" />
+                        </StackPanel>
+                    </Button>
+                </controls:WrapPanel>
+            </ScrollViewer>
+            <!--end of Menu items WrapPanel panel-->
+
+        </StackPanel><!--end of main stack panel-->
+    </Grid>
+</Page>

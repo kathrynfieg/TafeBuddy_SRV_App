@@ -1,0 +1,86 @@
+﻿<Page
+    x:Class="TafeBuddy_SRV_desktop_App.View.ParchmentRequest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TafeBuddy_SRV_desktop_App.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="#FFBE1428">
+
+    <Grid>
+        <Grid Width="700" Background="White" Margin="0,50,0,50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            
+            <StackPanel  Grid.Row="0" Margin="0,20,0,0" >
+                <TextBlock Text="PARCHMENT APPLICATION FORM" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"/>
+            </StackPanel>
+
+
+            <ScrollViewer Grid.Row="1" Margin="0,20,0,20" >
+                <!--form stack panel-->
+            
+                <StackPanel Width="600" Spacing="10" >
+                    <StackPanel>
+                        <TextBlock Text="TAFESA ID Number" Margin="0,0,0,5" FontWeight="SemiBold" />
+                        <TextBox x:Name="tafeIdTxtbox" Text="001061267" IsReadOnly="True" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="First Name" Margin="0,0,0,5" FontWeight="SemiBold" />
+                        <TextBox   Text="Kathryn" x:Name="firstNameTxtbox" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Last Name" Margin="0,0,0,5" FontWeight="SemiBold" />
+                        <TextBox   Text="Fieg" x:Name="lastNameTxtbox" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Date Of Birth" Margin="0,0,0,5" FontWeight="SemiBold"  />
+                        <DatePicker x:Name="dobDatePicker" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Email" Margin="0,0,0,5" FontWeight="SemiBold"  />
+                        <TextBox   Text="kathryn.fieg@student.tafesa.edu.au" x:Name="emailTxtbox" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Phone Number" Margin="0,0,0,5" FontWeight="SemiBold"  />
+                        <TextBox   Text="044 8800 340" x:Name="phoneTxtbox" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Qualification Title" Margin="0,0,0,5" FontWeight="SemiBold"  />
+                        <ComboBox PlaceholderText="Diploma of Software Development" x:Name="qualificationCmbbox" Width="600">
+                            <x:String>Diploma of Software Development</x:String>
+                            <x:String>Certificate IV in Programming</x:String>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Name of Lecturer (Optional)" Margin="0,0,0,5" FontWeight="SemiBold"  />
+                        <TextBox x:Name="lecturerNameTxtbox" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Campus of Study (Optional)" Margin="0,0,0,5" FontWeight="SemiBold"  />
+                        <TextBox x:Name="campusOfStudyTxtbox" />
+                    </StackPanel>
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="Your first and last name only will be printed on your AQF qualification parchment." />
+                        <TextBlock TextWrapping="Wrap" Text="Before submitting your parchment application, please check your student account to confirm your legal name is entered correctly, and your postal address is current.  Freecall 1800 882 661 if you need help in updating your information." />
+                    </StackPanel>
+                </StackPanel>
+                
+            <!--end of form stack panel-->
+            </ScrollViewer>
+        
+        
+        <StackPanel Grid.Row="2">
+            <Button  x:Name="submitRequestBtn" Content="Submit Parchment Request" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Click="SubmitRequestBtn_Click" />
+        </StackPanel>
+            
+        </Grid>
+
+        
+
+    </Grid>
+</Page>
