@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="TafeBuddy_SRV_desktop_App.View.QualificationLookup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TafeBuddy_SRV_desktop_App.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid >
+        <StackPanel Background="White" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Padding="20" Width="600" Spacing="10">
+                <TextBlock  Text="Thinking of enrolling into a new Qualification?" FontSize="24" />
+                <TextBlock Text="Choose a qualification below to see progress" />
+                <!--<ComboBox HorizontalAlignment="Center" Width="500" Header="" PlaceholderText="Area of Study" >
+                <x:String>Digital Literacy</x:String>
+                <x:String>Digital Media</x:String>
+                <x:String>IT Support</x:String>
+                <x:String>Networking and Security</x:String>
+                <x:String>Software Development</x:String>
+                <x:String>Website Development</x:String>
+            </ComboBox>-->
+                <ComboBox HorizontalAlignment="Center" Width="500" Header="" PlaceholderText="Qualification" >
+                    <x:String>Certificate I in Information, Digital Media and Technology</x:String>
+                    <x:String>Certificate II in Information, Digital Media and Technology</x:String>
+                    <x:String>Diploma of Digital Media Technologies</x:String>
+                    <x:String>Certificate III in Information, Digital Media and Technology</x:String>
+                    <x:String>Certificate IV in Information Technology</x:String>
+                    <x:String>Advanced Diploma of Computer Systems Technology</x:String>
+                    <x:String>Certificate IV in Cyber Security</x:String>
+                    <x:String>Certificate IV in Information Technology Networking</x:String>
+                    <x:String>Diploma of Information Technology Networking</x:String>
+                    <x:String>Advanced Diploma of Network Security</x:String>
+                    <x:String>Certificate IV in Programming</x:String>
+                    <x:String>Diploma of Software Development</x:String>
+                    <x:String>Certificate IV in Web-Based Technologies</x:String>
+                    <x:String>Diploma of Website Development</x:String>
+                </ComboBox>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="10">
+                    <Button Width="100" Content="Select" />
+                    <Button Width="100" Content="Cancel" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>

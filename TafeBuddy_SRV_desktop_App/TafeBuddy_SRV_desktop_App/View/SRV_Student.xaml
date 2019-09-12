@@ -1,0 +1,166 @@
+﻿<Page
+    x:Class="TafeBuddy_SRV_desktop_App.View.SRV_Student"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TafeBuddy_SRV_desktop_App.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Windows10version1803="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 6)"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+
+
+    <!--Page Bar-->
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Compact" IsSticky="True" Background="Black" Foreground="White" >
+            <AppBarButton x:Name="homeBtnAppBar" Label="Home" Icon="Home" Foreground="White" />
+            <AppBarButton x:Name="backBtnAppBar" Label="Back" Icon="Back" Foreground="White"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <!--end of page bar-->
+
+
+
+    <Grid>
+
+        <!--Main Stack Pannel-->
+        <StackPanel>
+            <!--Menu bar-->
+            <Windows10version1809:MenuBar Height="35">
+                <MenuBarItem Title="File" />
+                <MenuBarItem Title="Edit" />
+                <MenuBarItem Title="View" />
+            </Windows10version1809:MenuBar>
+            <!--End of menu bar-->
+
+            <!--Header stack pannel-->
+            <StackPanel Background="#FFBE1428" BorderThickness="0,0,0,3" BorderBrush="Black" Padding="10,5,10,5" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <!-- Logo -->
+                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="30,0,0,0">
+                        <Image x:Name="image" Source="ms-appx:///Images/logo4.png" Height="23" HorizontalAlignment="Left" Margin="0,0,0,-6"/>
+                        <TextBlock x:Name="textBlock"  Text="TAFE Buddy" Foreground="White" FontFamily="Impact" FontSize="24" VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="welcomeTxtBlock" Foreground="White" Text="Welcome, First Last" Margin="0,0,0,-8"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0">
+                            <HyperlinkButton Name="logoutHyperlink" Content="Logout" Foreground="White" FontWeight="SemiBold" FontSize="12" HorizontalAlignment="Right" Click="LogoutHyperlink_Click" />
+                            <Image x:Name="logOutImage" Source="/Images/Icons/logoff.png" Height="10" Margin="5,0,0,0" />
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+            <!--end of header-->
+
+            <!--title stack panel-->
+            <StackPanel  Padding="0,20,0,20" Background="#FFF2F2F2">
+                <TextBlock Text="STUDENT RESULTS VIEW" HorizontalAlignment="Center" FontSize="24" FontWeight="ExtraBold" />
+            </StackPanel>
+            <!--end of title stack panel-->
+
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
+                <!--Student Details stack panel-->
+                <StackPanel Margin="0,0,50,0" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"  />
+                            <ColumnDefinition Width="550" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Student ID"    Grid.Row="0" Grid.Column="0" FontWeight="SemiBold"/>
+                        <TextBlock Text="Student Name"  Grid.Row="1" Grid.Column="0" FontWeight="SemiBold"/>
+                        <TextBlock Text="Student Email" Grid.Row="2" Grid.Column="0" FontWeight="SemiBold"/>
+                        <TextBlock Text="Qualification" Grid.Row="3" Grid.Column="0" FontWeight="SemiBold"/>
+
+                        <TextBox Text="" x:Name="studentIdTxtbox"       Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" Background="White" IsReadOnly="True"  />
+                        <TextBox Text="" x:Name="studentNameTxtbox"     Grid.Row="1" Grid.Column="1" Margin="0,0,0,4" Background="White" IsReadOnly="True"  />
+                        <TextBox Text="" x:Name="studentEmailTxtbox"    Grid.Row="2" Grid.Column="1" Margin="0,0,0,4" Background="White" IsReadOnly="True"  />
+                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                            <ComboBox x:Name="qualificationCmbbox"    Width="470" HorizontalAlignment="Left" Background="White" SelectionChanged="QualificationCmbbox_SelectionChanged" />
+                            <HyperlinkButton Margin="10,0,0,0" ToolTipService.ToolTip="Additional Program Information">
+                                <Image Source="/Images/Icons/pdf.png" Height="25"/>
+                            </HyperlinkButton>
+                            <HyperlinkButton x:Name="lookupQualHyperlinkBtn" Margin="10,0,0,0" ToolTipService.ToolTip="Lookup different Qualification to see progress" Click="LookupQualHyperlinkBtn_Click">
+                                <Image Source="/Images/Icons/search2.png" Height="25" />
+                            </HyperlinkButton>
+                            <!--<Button x:Name="lookupQualBtn" Height="25" Margin="10,0,0,0" Width="25" ToolTipService.ToolTip="Lookup different Qualification to see progress" Click="LookupQualBtn_Click">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/Images/Icons/search2.png"/>
+                                </Button.Background>
+                            </Button>-->
+                            <!--<Image Source="/Images/icon/search-1.png" Height="25" Margin="10,0,0,0"  />-->
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+                <!--end student details stack panel-->
+
+                <!--progress bar stack panel-->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <StackPanel>
+                        <Canvas x:Name="canvasPercent" HorizontalAlignment="Center" Margin="0,10,140,140">
+                            <controls:RadialProgressBar x:Name="progressPercent"
+                            Value="0" Minimum="0" Maximum="100"
+                            Thickness="35" Outline="#FFEDEDED" Foreground="#FFBE1428"  Width="130" Height="130">
+                                <!--Foreground="#FFBE1428"-->
+                            </controls:RadialProgressBar>
+                            <Ellipse Height="90" Width="90" Canvas.Left="20" Canvas.Top="20" Fill="White" Stroke="White"/>
+                            <TextBlock x:Name="txtProgressPercent" Foreground="Black" FontSize="30px" FontFamily="Arial" Width="130" Height="32" TextAlignment="Center" Canvas.Top="48" Text="0%"/>
+                        </Canvas>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock x:Name="totalunitsTxtBlock" Text="Total units: 0" />
+                        <TextBlock x:Name="completedUnitsTxtBlk" Text="Completed : 0" />
+                        <TextBlock x:Name="ongoingUnisTxtblk" Text="Ongoing: 0" />
+                        <TextBlock x:Name="futureUnitsTxtblk" Text="Future: 0" />
+                    </StackPanel>
+                </StackPanel>
+                <!--end progress bar stack panel-->
+            </StackPanel>
+
+
+            <StackPanel Width="1000">
+
+                <!--Buttons stack panel-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,-2,-30" VerticalAlignment="Stretch">
+                    <Button x:Name="saveToFileBtn" Content="Save to File"              Width="170" Margin="0,0,10,0" />
+                    <Button x:Name="applyForParchmentBtn" Content="Apply for Parchment"       Width="170" Click="ApplyForParchmentBtn_Click" />
+                </StackPanel>
+                <!--end of buttons stack panel-->
+
+                <controls:TabView x:Name="Tabs">
+                    <controls:TabViewItem Header="Qualification Checklist">
+                        <ScrollViewer HorizontalAlignment="Center" Width="800" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
+                            <!--Competency Checklist-->
+                        </ScrollViewer>
+                    </controls:TabViewItem>
+                    <controls:TabViewItem Header="Subject Results">
+                        <ScrollViewer HorizontalAlignment="Center" Width="500" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
+                            <!--Subject Results-->
+                        </ScrollViewer>
+                    </controls:TabViewItem>
+                </controls:TabView>
+            </StackPanel>
+
+        </StackPanel>
+        <!--end of main stack pannel-->
+    </Grid>
+</Page>
