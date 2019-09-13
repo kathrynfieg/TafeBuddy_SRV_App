@@ -26,7 +26,7 @@ namespace TafeBuddy_SRV_desktop_App
     /// 
     sealed partial class App : Application
     {
-        public static string connectionString = "";
+        public static string connectionString = "server = localhost; user id = root; password = mysql; database = db_tafebuddy";
         public static string userLogged_firstName = ""; // Variable to know which user is logged
         public static string userLogged_lastName = "";
         public static string userLogged_id = "";

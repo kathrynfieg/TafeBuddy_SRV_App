@@ -35,6 +35,11 @@ namespace TafeBuddy_SRV_desktop_App.View
             formattableTitleBar.ButtonForegroundColor = Colors.White;
             CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
+
+            // Show user logged in
+            welcomeTxtBlock.Text = "Welcome, " + App.userLogged_firstName + " " + App.userLogged_lastName; // Show user logged
+            userNameTxtBlk.Text = App.userLogged_lastName.ToUpper() + ", " + App.userLogged_firstName;
+            userIdTxtBlk.Text = App.userLogged_id;
         }
 
         /**
