@@ -68,11 +68,13 @@
                             <TextBlock Text="Maintenance" HorizontalAlignment="Center" FontSize="20" />
                         </StackPanel>
                     </Button>
-                    <Button Width="200" Height="250" Foreground="White" >
-                        <StackPanel>
-                            <Image Source="/Images/Icons/web.png" Width="100" Height="100" />
-                            <TextBlock Text="ITWorks Web" HorizontalAlignment="Center"  FontSize="20" />
-                        </StackPanel>
+                    <Button Padding="-2,-2,-2,-2" Foreground="White" >
+                        <HyperlinkButton Width="200" Height="250"  NavigateUri="http://itworks.studentserver.com.au/itworks/" Foreground="White"  >
+                            <StackPanel>
+                                <Image Source="/Images/Icons/web.png" Width="100" Height="100" />
+                                <TextBlock Text="ITWorks Web" HorizontalAlignment="Center"  FontSize="20" />
+                            </StackPanel>
+                        </HyperlinkButton>
                     </Button>
                     <Button Width="200" Height="250" Foreground="White">
                         <StackPanel>
