@@ -15,13 +15,11 @@ VALUES ('001061267', 'Kathryn', 'Fieg', 'kathryn.fieg@student.tafesa.edu.au');
 */
 
 INSERT INTO `db_tafebuddy`.`student_studyplan`
-(`StudentID`,
-`QualCode`,
-`TermCodeStart`,
-`TermYearStart`,
-`EnrolmentType`)
+(`StudentID`,`QualCode`,`TermCodeStart`,`TermYearStart`,`EnrolmentType`)
 -- Kathryn Fieg
-VALUES ('001061267', 'D_SD15', 1, 2018, 'full time');
+VALUES ('001061267', 'D_SD15', 1, 2018, 'full time'),
+('001061267', 'C3_IDM15_PRG', 1, 2018, 'full time');
+
 
 /*
 * ************************************************************ Insert student_grade ************************************************************
