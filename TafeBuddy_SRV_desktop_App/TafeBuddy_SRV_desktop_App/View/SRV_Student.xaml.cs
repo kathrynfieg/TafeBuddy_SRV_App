@@ -98,13 +98,8 @@ namespace TafeBuddy_SRV_desktop_App.View
         /**
          * Method to populate student qualification combobox
          **/
-        public void PopulateQualification(string area = "")
+        public void PopulateQualification()
         {
-            //SELECT distinct q.NationalQualCode, q.QualName FROM Student s
-            //INNER JOIN student_studyplan ss ON s.StudentID = ss.StudentID
-            //INNER JOIN Qualification q on ss.QualCode = q.QualCode
-            //WHERE s.EmailAddress = 'kathryn.fieg@student.tafesa.edu.au' OR s.StudentID = '001061267';
-
             // Creates the connection
             MySqlConnection conn = new MySqlConnection(App.connectionString);
 
@@ -114,11 +109,6 @@ namespace TafeBuddy_SRV_desktop_App.View
             sb.Append("INNER JOIN Qualification q on ss.QualCode = q.QualCode ");
             sb.Append("WHERE (s.EmailAddress = '").Append(User).Append("' ");
             sb.Append(" OR s.StudentID = '").Append(User).Append("') ");
-
-            //if (!String.IsNullOrEmpty(area))
-            //{
-            //    sb.Append(" AND a.AreasOfStudyID = '").Append(area).Append("' ");
-            //}
 
             // Creates the SQL command
             MySqlCommand command = new MySqlCommand(sb.ToString(), conn);
