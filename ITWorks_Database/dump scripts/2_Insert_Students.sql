@@ -27,7 +27,7 @@ VALUES ('001061267', 'D_SD15', 1, 2018, 'full time'),
 -- kathryn fieg
 INSERT INTO `db_tafebuddy`.`student_grade`(`StudentID`,`CRN`,`TafeCompCode`,`TermCode`,`TermYear`,`Grade`)
 VALUES
--- ('001061267','18804','FABRP',1,2019,'PA'),
+('001061267','18804','FABRP',1,2019,'PA'),
 ('001061267','18808','TAABB',1,2019,'PA'),
 ('001061267','18791','TAABF',1,2019,'PA'),
 ('001061267','18796','TAADS',1,2019,'PA'),
