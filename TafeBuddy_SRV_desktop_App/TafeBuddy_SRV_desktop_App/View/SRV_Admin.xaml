@@ -164,6 +164,7 @@
                     <controls:TabViewItem Header="Subject Results">
                             <ScrollViewer HorizontalAlignment="Center" Width="500" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
                                 <!--subject reults-->
+                                
                             </ScrollViewer>
                         </controls:TabViewItem>
                 </controls:TabView>
