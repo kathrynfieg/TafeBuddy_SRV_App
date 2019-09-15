@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -32,6 +33,8 @@ namespace TafeBuddy_SRV_desktop_App.View
         private static string User;
         private static string StudentID;
 
+        private ObservableCollection<StudentGrade> Results = new ObservableCollection<StudentGrade>();
+
         public SRV_Admin()
         {
             this.InitializeComponent();
@@ -56,6 +59,7 @@ namespace TafeBuddy_SRV_desktop_App.View
                 //areaOfStudcomboBox.SelectedIndex = areaIndex;
                 //comboBox.SelectedIndex = qualIndex;
                 PopulateQualification();
+                displayStudentResults(StudentID);
                 detailsStackPanel.Visibility = Visibility.Visible;
             }
             else
@@ -126,6 +130,59 @@ namespace TafeBuddy_SRV_desktop_App.View
                 // Add an item in the Combobox
                 qualificationCmbbox.Items.Add(new Item(dr.GetString("NationalQualCode"), "(" + dr.GetString("NationalQualCode") + ") " + dr.GetString("QualName")));
                 qualificationCmbbox.SelectedItem = qualificationCmbbox.Items[0];
+            }
+
+            // Close the connection
+            conn.Close();
+        }
+
+        public void displayStudentResults(string studentID)
+        {
+            // Clears list
+            Results.Clear();
+
+            // Creates the connection
+            MySqlConnection conn = new MySqlConnection(App.connectionString);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, sg.Grade, sg.CRN, crnd.SubjectCode, sub.SubjectDescription ");
+            sb.Append("FROM student_grade as sg INNER JOIN student as s ");
+            sb.Append("ON sg.StudentID = s.StudentID ");
+            sb.Append("INNER JOIN crn_detail as crnd ");
+            sb.Append("ON sg.CRN = crnd.CRN ");
+            sb.Append("INNER JOIN subject as sub ");
+            sb.Append("ON crnd.SubjectCode = sub.SubjectCode ");
+            sb.Append("WHERE s.StudentID = '").Append(studentID).Append("'; ");
+
+            // Creates the SQL command
+            MySqlCommand command = new MySqlCommand(sb.ToString(), conn);
+
+            MySqlDataReader dr; // Creates a reader to read the data
+
+            conn.Open(); // Open the connection
+
+            dr = command.ExecuteReader(); // Execute the command and attach to the reader
+
+
+            // While there are rows in the read            
+            while (dr.Read())
+            {
+
+                string subjectdesc = dr.GetString("SubjectDescription");
+                string subjectCode = dr.GetString("SubjectCode");
+                string grade = "";
+                //if (!dr.IsDBNull(dr.GetOrdinal("Grade")))
+                if (dr.IsDBNull(dr.GetOrdinal("Grade")))
+                {
+                    grade = "Ongoing";
+                }
+                else
+                {
+                    grade = dr.GetString("Grade");
+                }
+
+                StudentGrade result = new StudentGrade(subjectCode, subjectdesc, grade);
+                Results.Add(result);
             }
 
             // Close the connection

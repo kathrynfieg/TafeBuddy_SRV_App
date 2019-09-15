@@ -162,9 +162,38 @@
                         </ScrollViewer>
                     </controls:TabViewItem>
                     <controls:TabViewItem Header="Subject Results">
-                            <ScrollViewer HorizontalAlignment="Center" Width="500" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
+                            <ScrollViewer HorizontalAlignment="Center" Width="550" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
                                 <!--subject reults-->
-                                
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Background="#FFBE1428" Padding="5,5,5,5">
+                                        <StackPanel Width="100">
+                                            <TextBlock FontWeight="Bold" Foreground="White" Text="Subject Code"  />
+                                        </StackPanel>
+                                        <StackPanel Width="350">
+                                            <TextBlock FontWeight="Bold" Foreground="White" Text="Subject Description" />
+                                        </StackPanel>
+                                        <StackPanel Width="100">
+                                            <TextBlock FontWeight="Bold" Foreground="White" Text="Result" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <ListView ItemsSource="{x:Bind Results}" x:DefaultBindMode="TwoWay" x:Name="subjectGradesListView">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="local:StudentGrade">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <StackPanel Width="100">
+                                                        <TextBlock Text="{x:Bind SubjectCode}" />
+                                                    </StackPanel>
+                                                    <StackPanel Width="350">
+                                                        <TextBlock Text="{x:Bind SubjectDescription}" />
+                                                    </StackPanel>
+                                                    <StackPanel Width="100">
+                                                        <TextBlock Text="{x:Bind Result}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
                             </ScrollViewer>
                         </controls:TabViewItem>
                 </controls:TabView>
