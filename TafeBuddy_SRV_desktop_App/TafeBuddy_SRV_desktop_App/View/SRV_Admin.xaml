@@ -85,7 +85,7 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"  />
-                            <ColumnDefinition Width="500" />
+                            <ColumnDefinition Width="550" />
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Text="Student ID"    Grid.Row="0" Grid.Column="0" FontWeight="SemiBold"/>
@@ -97,14 +97,14 @@
 
 
                         <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" Orientation="Horizontal">
-                            <TextBox x:Name="studentIdTxtbox"  Background="White" Width="368"/>
+                            <TextBox x:Name="studentIdTxtbox"  Background="White" Width="419"/>
                             <Button x:Name="searchStudentIDTxtbox" Content="Search Student" Width="120" Margin="10,0,0,0" Click="SearchStudentIDTxtbox_Click"  />
                         </StackPanel>
                         <Button x:Name="respondToParchmentRequestBtn" Content="Respond to Parchment Request"  Grid.Row="1" Grid.Column="1" Margin="0,0,0,4"  Background="#FFBEF0B7" Width="500" Visibility="Collapsed" FontWeight="Bold" Click="RespondToParchmentRequestBtn_Click"  />
                         <TextBox x:Name="studentNameTxtbox"     Grid.Row="2" Grid.Column="1" Margin="0,0,0,4" Background="White" IsReadOnly="True"/>
                         <TextBox x:Name="studentEmailTxtbox"    Grid.Row="3" Grid.Column="1" Margin="0,0,0,4" Background="White" IsReadOnly="True"/>
                         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                            <ComboBox x:Name="qualificationCmbbox"    Width="420" HorizontalAlignment="Left"  Background="White" SelectionChanged="QualificationCmbbox_SelectionChanged"/>
+                            <ComboBox x:Name="qualificationCmbbox"    Width="475" HorizontalAlignment="Left"  Background="White" SelectionChanged="QualificationCmbbox_SelectionChanged"/>
                             <HyperlinkButton NavigateUri="https://www.tafesa.edu.au/PDF/courses/2020/TP00750/Program_Information_Document_Diploma_Programming_Version_181118.pdf"  Margin="10,0,0,0" ToolTipService.ToolTip="Additional Program Information">
                                 <Image Source="/Images/Icons/pdf.png" Height="25"/>
                             </HyperlinkButton>
