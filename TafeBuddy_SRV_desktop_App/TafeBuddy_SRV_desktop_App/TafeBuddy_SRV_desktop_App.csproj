@@ -200,6 +200,7 @@
     <Content Include="Images\splash\2.png" />
     <Content Include="Images\splash\3.png" />
     <Content Include="Images\splash\4.png" />
+    <Content Include="Images\splash\splash.scale-200.png" />
     <Content Include="Images\user.png" />
     <Content Include="Images\user2.png" />
     <Content Include="Images\userIcon.jpg" />
