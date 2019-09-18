@@ -142,7 +142,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             MySqlConnection conn = new MySqlConnection(App.connectionString);
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, sg.Grade, sg.CRN, crnd.SubjectCode, sub.SubjectDescription ");
+            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, sg.Grade, sg.CRN, crnd.SubjectCode, crnd.TafeCompCode, sub.SubjectDescription ");
             sb.Append("FROM student_grade as sg INNER JOIN student as s ");
             sb.Append("ON sg.StudentID = s.StudentID ");
             sb.Append("INNER JOIN crn_detail as crnd ");
@@ -167,6 +167,7 @@ namespace TafeBuddy_SRV_desktop_App.View
 
                 string subjectdesc = dr.GetString("SubjectDescription");
                 string subjectCode = dr.GetString("SubjectCode");
+                string compCode = dr.GetString("TafeCompCode");
                 string grade = "";
                 //if (!dr.IsDBNull(dr.GetOrdinal("Grade")))
                 if (dr.IsDBNull(dr.GetOrdinal("Grade")))
@@ -178,7 +179,7 @@ namespace TafeBuddy_SRV_desktop_App.View
                     grade = dr.GetString("Grade");
                 }
 
-                StudentGrade result = new StudentGrade(subjectCode, subjectdesc, grade);
+                StudentGrade result = new StudentGrade(subjectCode, subjectdesc, grade, compCode);
                 Results.Add(result);
             }
 
@@ -244,6 +245,11 @@ namespace TafeBuddy_SRV_desktop_App.View
         private void QualificationCmbbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
+
+        private void HomeBtnAppBar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(View.Home));
+        }
     }
 
     class StudentGrade
@@ -251,12 +257,14 @@ namespace TafeBuddy_SRV_desktop_App.View
         public string SubjectCode;
         public string SubjectDescription;
         public string Result;
+        public string CompCode;
 
-        public StudentGrade(string subjectCode, string subjectDescription, string result)
+        public StudentGrade(string subjectCode, string subjectDescription, string result, string compCode)
         {
             this.SubjectCode = subjectCode;
             this.SubjectDescription = subjectDescription;
             this.Result = result;
+            this.CompCode = compCode;
         }
     }
 

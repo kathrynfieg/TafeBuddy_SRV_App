@@ -17,8 +17,8 @@
     <!--Page Bar-->
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Compact" IsSticky="True" Background="Black" Foreground="White" >
-            <AppBarButton x:Name="homeBtnAppBar" Label="Home" Icon="Home" Foreground="White" />
-            <AppBarButton x:Name="backBtnAppBar" Label="Back" Icon="Back" Foreground="White"/>
+            <AppBarButton x:Name="homeBtnAppBar" Label="Home" Icon="Home" Foreground="White" Click="HomeBtnAppBar_Click" />
+            <AppBarButton x:Name="backBtnAppBar" Label="Back" Icon="Back" Foreground="White" Click="HomeBtnAppBar_Click"/>
         </CommandBar>
     </Page.BottomAppBar>
     <!--end of page bar-->
@@ -153,28 +153,32 @@
                         </ScrollViewer>
                     </controls:TabViewItem>
                     <controls:TabViewItem Header="Subject Results">
-                        <ScrollViewer HorizontalAlignment="Center" Width="550" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
+                        <ScrollViewer HorizontalAlignment="Center" Width="600" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
                             <!--Subject Results-->
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Background="#FFBE1428" Padding="5,5,5,5">
-                                    <StackPanel Width="100">
-                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Subject Code"  />
-                                    </StackPanel>
-                                    <StackPanel Width="350">
-                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Subject Description" />
-                                    </StackPanel>
-                                    <StackPanel Width="100">
-                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Result" />
-                                    </StackPanel>
+                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Comp Code"  /></StackPanel>
+                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Subject Code"  /></StackPanel>
+                                    <StackPanel Width="300"><TextBlock FontWeight="Bold" Foreground="White" Text="Subject Description" /></StackPanel>
+                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Result" /></StackPanel>
                                 </StackPanel>
                                 <ListView ItemsSource="{x:Bind Results}" x:DefaultBindMode="TwoWay">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Height" Value="20" />
+                                            <Setter Property="MinHeight" Value="20" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="local:StudentGrade">
                                             <StackPanel Orientation="Horizontal">
                                                 <StackPanel Width="100">
+                                                    <TextBlock Text="{x:Bind CompCode}" />
+                                                </StackPanel>
+                                                <StackPanel Width="100">
                                                     <TextBlock Text="{x:Bind SubjectCode}" />
                                                 </StackPanel>
-                                                <StackPanel Width="350">
+                                                <StackPanel Width="300">
                                                     <TextBlock Text="{x:Bind SubjectDescription}" />
                                                 </StackPanel>
                                                 <StackPanel Width="100">
