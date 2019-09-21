@@ -215,6 +215,10 @@ namespace TafeBuddy_SRV_desktop_App.View
                 string competencyName = dr.GetString("CompetencyName");
                 string competencyType = dr.GetString("CompTypeCode");
                 Competency competency = new Competency(tafeCompCode, nationalCompCode, competencyName, competencyType);
+
+                // checks if a student has done the competency
+                competency.Done = competency.IsDone(StudentID, competency);
+
                 RequiredCompetencies.Add(competency);
 
             }

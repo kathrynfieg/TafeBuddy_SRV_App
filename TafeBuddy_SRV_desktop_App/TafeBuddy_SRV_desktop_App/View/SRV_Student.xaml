@@ -169,10 +169,10 @@
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="local1:Competency">
                                             <StackPanel Orientation="Horizontal">
-                                                <StackPanel Width="30"><CheckBox Height="15"></CheckBox></StackPanel>
+                                                <StackPanel Width="30"><CheckBox IsChecked="{x:Bind Done}" IsHitTestVisible="False" Height="15"></CheckBox></StackPanel>
                                                 <StackPanel Width="100"><TextBlock Text="{x:Bind NationalCompCode}" /></StackPanel>
-                                                <StackPanel Width="100"><TextBlock Text="{x:Bind TafeCompCode}"/></StackPanel>                                                
-                                                <StackPanel Width="500"><TextBlock Text="{x:Bind CompetencyName}"  /></StackPanel>
+                                                <StackPanel Width="100"><TextBlock Text="{x:Bind TafeCompCode}" /></StackPanel>                                                
+                                                <StackPanel Width="500"><TextBlock Text="{x:Bind CompetencyName}" /></StackPanel>
                                                 <StackPanel Width="100"><TextBlock Text="{x:Bind CompetencyType}" /></StackPanel>
                                             </StackPanel>
                                         </DataTemplate>
