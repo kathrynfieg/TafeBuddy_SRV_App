@@ -109,7 +109,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             MySqlConnection conn = new MySqlConnection(App.connectionString);
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT distinct q.NationalQualCode, q.QualName FROM Student s ");
+            sb.Append("SELECT distinct q.NationalQualCode, q.QualName, q.QualCode FROM Student s ");
             sb.Append("INNER JOIN student_studyplan ss ON s.StudentID = ss.StudentID ");
             sb.Append("INNER JOIN Qualification q on ss.QualCode = q.QualCode ");
             sb.Append("WHERE (s.EmailAddress = '").Append(User).Append("' ");
@@ -129,7 +129,14 @@ namespace TafeBuddy_SRV_desktop_App.View
             while (dr.Read())
             {
                 // Add an item in the Combobox
-                qualificationCmbbox.Items.Add(new Item(dr.GetString("NationalQualCode"), "(" + dr.GetString("NationalQualCode") + ") " + dr.GetString("QualName")));
+                Qualification qualification = new Qualification(dr.GetString("QualCode"))
+                {
+                    QualCode = dr.GetString("QualCode"),
+                    NationalQualCode = dr.GetString("NationalQualCode"),
+                    QualName = dr.GetString("QualName")
+                };
+
+                qualificationCmbbox.Items.Add(qualification);
                 qualificationCmbbox.SelectedItem = qualificationCmbbox.Items[0];
             }
 
