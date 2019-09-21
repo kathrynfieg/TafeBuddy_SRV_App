@@ -160,6 +160,34 @@
                         <ScrollViewer HorizontalAlignment="Center" Width="800" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
                             <!--Height="400"-->
                             <!--competency checklist-->
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Background="#FFBE1428" Padding="5,5,5,5">
+                                    <StackPanel Width="30"></StackPanel>
+                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="National Code"  /></StackPanel>
+                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Tafe Code"  /></StackPanel>                                    
+                                    <StackPanel Width="500"><TextBlock FontWeight="Bold" Foreground="White" Text="Competency Description" /></StackPanel>
+                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Type"  /></StackPanel>
+                                </StackPanel>
+                                <ListView ItemsSource="{x:Bind RequiredCompetencies}" x:DefaultBindMode="TwoWay">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Height" Value="30" />
+                                            <Setter Property="MinHeight" Value="30" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="local1:Competency">
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Width="30"><CheckBox IsChecked="{x:Bind Done}" IsHitTestVisible="False" Height="15"></CheckBox></StackPanel>
+                                                <StackPanel Width="100"><TextBlock Text="{x:Bind NationalCompCode}" /></StackPanel>
+                                                <StackPanel Width="100"><TextBlock Text="{x:Bind TafeCompCode}" /></StackPanel>                                                
+                                                <StackPanel Width="500"><TextBlock Text="{x:Bind CompetencyName}" /></StackPanel>
+                                                <StackPanel Width="100"><TextBlock Text="{x:Bind CompetencyType}" /></StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
                         </ScrollViewer>
                     </controls:TabViewItem>
                     <controls:TabViewItem Header="Subject Results">

@@ -35,6 +35,7 @@ namespace TafeBuddy_SRV_desktop_App.View
         private static string StudentID;
 
         private ObservableCollection<StudentGrade> Results = new ObservableCollection<StudentGrade>();
+        private ObservableCollection<Competency> RequiredCompetencies = new ObservableCollection<Competency>();
 
         public SRV_Admin()
         {
@@ -61,6 +62,7 @@ namespace TafeBuddy_SRV_desktop_App.View
                 //comboBox.SelectedIndex = qualIndex;
                 PopulateQualification();
                 DisplayStudentResults(StudentID);
+                DisplayCompetencyChecklist(StudentID, ((Qualification)qualificationCmbbox.SelectedItem).QualCode);
                 detailsStackPanel.Visibility = Visibility.Visible;
             }
             else
@@ -196,6 +198,51 @@ namespace TafeBuddy_SRV_desktop_App.View
 
             // Close the connection
             conn.Close();
+        }
+
+        public void DisplayCompetencyChecklist(string studentID, string qualID)
+        {
+            RequiredCompetencies.Clear();
+
+            // Creates the connection
+            MySqlConnection conn = new MySqlConnection(App.connectionString);
+
+            StringBuilder allCompSb = new StringBuilder();
+            allCompSb.Append("SELECT q.QualCode, q.NationalQualCode, q.TafeQualCode, q.QualName, c.TafeCompCode, c.NationalCompCode, c.CompetencyName, cq.CompTypeCode");
+            allCompSb.Append(" FROM competency AS c INNER JOIN competency_qualification as cq");
+            allCompSb.Append(" ON c.NationalCompCode = cq.NationalCompCode");
+            allCompSb.Append(" INNER JOIN qualification AS q");
+            allCompSb.Append(" ON q.QualCode = cq.QualCode");
+            allCompSb.Append(" WHERE q.QualCode = '").Append(qualID).Append("'; ");
+
+            // Creates the SQL command
+            MySqlCommand command = new MySqlCommand(allCompSb.ToString(), conn);
+
+            MySqlDataReader dr; // Creates a reader to read the data
+
+            conn.Open(); // Open the connection
+
+            dr = command.ExecuteReader(); // Execute the command and attach to the reader
+
+            // While there are rows in the read
+            while (dr.Read())
+            {
+                string tafeCompCode = dr.GetString("TafeCompCode");
+                string nationalCompCode = dr.GetString("NationalCompCode");
+                string competencyName = dr.GetString("CompetencyName");
+                string competencyType = dr.GetString("CompTypeCode");
+                Competency competency = new Competency(tafeCompCode, nationalCompCode, competencyName, competencyType);
+
+                // checks if a student has done the competency
+                competency.Done = competency.IsDone(StudentID, competency);
+
+                RequiredCompetencies.Add(competency);
+
+            }
+
+            // Close the connection
+            conn.Close();
+
         }
 
         public void ClearFields()
@@ -345,6 +392,15 @@ namespace TafeBuddy_SRV_desktop_App.View
 
         private void QualificationCmbbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (qualificationCmbbox.SelectedItem == null)
+            {
+                return;
+            }
+            else
+            {
+                DisplayCompetencyChecklist(StudentID, ((Qualification)qualificationCmbbox.SelectedItem).QualCode);
+            }
+            
         }
 
         private void HomeBtnAppBar_Click(object sender, RoutedEventArgs e)
