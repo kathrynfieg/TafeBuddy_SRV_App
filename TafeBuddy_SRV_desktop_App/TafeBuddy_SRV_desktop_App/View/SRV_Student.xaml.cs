@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using TafeBuddy_SRV_desktop_App.Model;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -67,7 +68,7 @@ namespace TafeBuddy_SRV_desktop_App.View
 
             PopulateUser();
             PopulateQualification();
-            displayStudentResults(StudentID);
+            DisplayStudentResults(StudentID);
         }
 
         /**
@@ -136,8 +137,11 @@ namespace TafeBuddy_SRV_desktop_App.View
             conn.Close();
         }
 
-        public void displayStudentResults(string studentID)
+        public void DisplayStudentResults(string studentID)
         {
+            // Clears list
+            Results.Clear();
+
             // Creates the connection
             MySqlConnection conn = new MySqlConnection(App.connectionString);
 
@@ -251,21 +255,6 @@ namespace TafeBuddy_SRV_desktop_App.View
             this.Frame.Navigate(typeof(View.Home));
         }
     }
-
-    class StudentGrade
-    {
-        public string SubjectCode;
-        public string SubjectDescription;
-        public string Result;
-        public string CompCode;
-
-        public StudentGrade(string subjectCode, string subjectDescription, string result, string compCode)
-        {
-            this.SubjectCode = subjectCode;
-            this.SubjectDescription = subjectDescription;
-            this.Result = result;
-            this.CompCode = compCode;
-        }
-    }
+    
 
 }

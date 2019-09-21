@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using TafeBuddy_SRV_desktop_App.Model;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -59,7 +60,7 @@ namespace TafeBuddy_SRV_desktop_App.View
                 //areaOfStudcomboBox.SelectedIndex = areaIndex;
                 //comboBox.SelectedIndex = qualIndex;
                 PopulateQualification();
-                displayStudentResults(StudentID);
+                DisplayStudentResults(StudentID);
                 detailsStackPanel.Visibility = Visibility.Visible;
             }
             else
@@ -136,7 +137,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             conn.Close();
         }
 
-        public void displayStudentResults(string studentID)
+        public void DisplayStudentResults(string studentID)
         {
             // Clears list
             Results.Clear();
