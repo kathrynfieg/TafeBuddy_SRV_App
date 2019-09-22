@@ -224,19 +224,49 @@ namespace TafeBuddy_SRV_desktop_App.View
 
             dr = command.ExecuteReader(); // Execute the command and attach to the reader
 
+            int totalUnits = 0;
+            int completedUnits = 0;
+            int ongoingUnits = 0;
+            int futureUnits = 0;
+
             // While there are rows in the read
             while (dr.Read())
             {
+                totalUnits++;
+
                 string tafeCompCode = dr.GetString("TafeCompCode");
                 string nationalCompCode = dr.GetString("NationalCompCode");
                 string competencyName = dr.GetString("CompetencyName");
                 string competencyType = dr.GetString("CompTypeCode");
                 Competency competency = new Competency(tafeCompCode, nationalCompCode, competencyName, competencyType);
 
-                // checks if a student has done the competency
-                competency.Done = competency.IsDone(StudentID, competency);
+                if ((competency.getCompetencyStatus(StudentID, competency)) == "Ongoing")
+                {
+                    ongoingUnits++;
+                }
+                else if ((competency.getCompetencyStatus(StudentID, competency)) == "Completed")
+                {
+                    completedUnits++;
+                    competency.Done = true;
+                }
+                else
+                {
+                    futureUnits++;
+                }
 
                 RequiredCompetencies.Add(competency);
+
+                // Calculates the Percentage
+
+                double percent = 0;
+                percent = ((double)completedUnits / (double)totalUnits);
+                progressPercent.Value = percent * 100;
+                txtProgressPercent.Text = percent.ToString("P0");
+
+                totalunitsTxtBlock.Text = "Total Units: " + totalUnits.ToString();
+                completedUnitsTxtBlk.Text = "Completed: " + completedUnits.ToString();
+                ongoingUnisTxtblk.Text = "Ongoing: " + ongoingUnits.ToString();
+                futureUnitsTxtblk.Text = "Future: " + futureUnits.ToString();
 
             }
 
