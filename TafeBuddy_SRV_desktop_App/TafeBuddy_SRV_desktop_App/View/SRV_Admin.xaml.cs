@@ -208,7 +208,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             MySqlConnection conn = new MySqlConnection(App.connectionString);
 
             StringBuilder allCompSb = new StringBuilder();
-            allCompSb.Append("SELECT q.QualCode, q.NationalQualCode, q.TafeQualCode, q.QualName, c.TafeCompCode, c.NationalCompCode, c.CompetencyName, cq.CompTypeCode");
+            allCompSb.Append("SELECT q.QualCode, q.NationalQualCode, q.TafeQualCode, q.QualName, q.ProgramInformationDocument, c.TafeCompCode, c.NationalCompCode, c.CompetencyName, cq.CompTypeCode");
             allCompSb.Append(" FROM competency AS c INNER JOIN competency_qualification as cq");
             allCompSb.Append(" ON c.NationalCompCode = cq.NationalCompCode");
             allCompSb.Append(" INNER JOIN qualification AS q");
@@ -257,16 +257,20 @@ namespace TafeBuddy_SRV_desktop_App.View
                 RequiredCompetencies.Add(competency);
 
                 // Calculates the Percentage
-
                 double percent = 0;
                 percent = ((double)completedUnits / (double)totalUnits);
                 progressPercent.Value = percent * 100;
                 txtProgressPercent.Text = percent.ToString("P0");
 
+                // Populates Number of units
                 totalunitsTxtBlock.Text = "Total Units: " + totalUnits.ToString();
                 completedUnitsTxtBlk.Text = "Completed: " + completedUnits.ToString();
                 ongoingUnisTxtblk.Text = "Ongoing: " + ongoingUnits.ToString();
                 futureUnitsTxtblk.Text = "Future: " + futureUnits.ToString();
+
+                // Sets Link to Program Information PDF Document
+                Uri uri = new Uri(dr.GetString("ProgramInformationDocument"));
+                linkToMoreInfoHyperlink.NavigateUri = uri;
 
             }
 

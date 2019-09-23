@@ -106,7 +106,7 @@
                         <TextBox x:Name="studentEmailTxtbox"    Grid.Row="3" Grid.Column="1" Margin="0,0,0,4" Background="White" IsReadOnly="True"/>
                         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
                             <ComboBox x:Name="qualificationCmbbox"    Width="475" HorizontalAlignment="Left"  Background="White" SelectionChanged="QualificationCmbbox_SelectionChanged"/>
-                            <HyperlinkButton NavigateUri="https://www.tafesa.edu.au/PDF/courses/2020/TP00750/Program_Information_Document_Diploma_Programming_Version_181118.pdf"  Margin="10,0,0,0" ToolTipService.ToolTip="Additional Program Information">
+                            <HyperlinkButton x:Name="linkToMoreInfoHyperlink" Margin="10,0,0,0" ToolTipService.ToolTip="Additional Program Information">
                                 <Image Source="/Images/Icons/pdf.png" Height="25"/>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="lookupQualHyperlinkBtn" Margin="10,0,0,0" ToolTipService.ToolTip="Lookup different Qualification to see progress" Click="LookupQualHyperlinkBtn_Click">
