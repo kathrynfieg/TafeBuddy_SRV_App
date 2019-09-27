@@ -284,7 +284,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 Frame frame = new Frame();
-                frame.Navigate(typeof(View.ParchmentRequest), null);
+                frame.Navigate(typeof(View.ParchmentRequest), new string[] { StudentID });
                 Window.Current.Content = frame;
                 // You have to activate the window in order to show it later.
                 Window.Current.Activate();
