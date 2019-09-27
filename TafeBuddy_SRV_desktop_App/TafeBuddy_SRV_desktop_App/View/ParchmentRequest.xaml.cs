@@ -199,6 +199,8 @@ namespace TafeBuddy_SRV_desktop_App.View
 
                 dr = myCommand.ExecuteReader(); // Execute the command and attach to the reader
 
+                conn.Close();
+
                 Window.Current.Close();
             }
             else
