@@ -82,10 +82,11 @@ namespace TafeBuddy_SRV_desktop_App.View
                 string lastName = dr.GetString("LastName");
                 string reqQual = dr.GetString("NationalQualCode") + " " + dr.GetString("QualName");
                 string dateApplied = dr.GetString("DateApplied").ToString();
+                string status = dr.GetString("status");
 
                 pendingRequests++;
 
-                ParchmentRequestModel request = new ParchmentRequestModel(studId, givenName, lastName, reqQual, dateApplied);
+                ParchmentRequestModel request = new ParchmentRequestModel(studId, givenName, lastName, reqQual, dateApplied, status);
                 PendingRequests.Add(request);
 
             }

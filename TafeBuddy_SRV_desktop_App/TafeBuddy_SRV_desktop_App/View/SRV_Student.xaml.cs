@@ -35,6 +35,7 @@ namespace TafeBuddy_SRV_desktop_App.View
 
         private ObservableCollection<StudentGrade> Results = new ObservableCollection<StudentGrade>();
         private ObservableCollection<Competency> RequiredCompetencies = new ObservableCollection<Competency>();
+        private ObservableCollection<ParchmentRequestModel> Requests = new ObservableCollection<ParchmentRequestModel>();
 
         public SRV_Student()
         {
@@ -54,6 +55,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             PopulateUser();
             PopulateQualification();
             DisplayStudentResults(StudentID);
+            CheckForParchmentRequests();
         }
 
         /**
@@ -260,6 +262,58 @@ namespace TafeBuddy_SRV_desktop_App.View
 
             // Close the connection
             conn.Close();
+
+        }
+
+        public void CheckForParchmentRequests()
+        {
+            // Creates the connection
+            MySqlConnection conn = new MySqlConnection(App.connectionString);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, q.TafeQualCode, q.NationalQualCode, q.QualName, pr.DateApplied, pr.status");
+            sb.Append(" FROM student s INNER JOIN parchment_request pr ON s.StudentID = pr.student_StudentID1");
+            sb.Append(" INNER JOIN qualification q ON q.QualCode = pr.qualification_QualCode");
+            sb.Append(" WHERE s.StudentID = '").Append(StudentID).Append("';");
+
+            // Creates the SQL command
+            MySqlCommand command = new MySqlCommand(sb.ToString(), conn);
+
+            MySqlDataReader dr; // Creates a reader to read the data
+
+            conn.Open(); // Open the connection
+
+            dr = command.ExecuteReader(); // Execute the command and attach to the reader
+
+            int noOfRequests = 0;
+
+            // While there are rows in the read            
+            while (dr.Read())
+            {
+                string studId = dr.GetString("StudentID");
+                string givenName = dr.GetString("GivenName");
+                string lastName = dr.GetString("LastName");
+                string reqQual = dr.GetString("NationalQualCode") + " " + dr.GetString("QualName");
+                string dateApplied = dr.GetString("DateApplied").ToString();
+                string status = dr.GetString("status");
+
+                noOfRequests++;
+
+                ParchmentRequestModel request = new ParchmentRequestModel(studId, givenName, lastName, reqQual, dateApplied, status);
+                Requests.Add(request);
+            }
+
+            conn.Close();
+
+            if (noOfRequests > 0)
+            {
+                parchmentReqTab.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                parchmentReqTab.Visibility = Visibility.Collapsed;
+            }
+
 
         }
 

@@ -13,14 +13,16 @@ namespace TafeBuddy_SRV_desktop_App.Model
         public string LastName;
         public string RequestedQual;
         public string DateApplied;
+        public string Status;
 
-        public ParchmentRequestModel(string studentId, string givenName, string lastName, string reqQual, string dateApplied)
+        public ParchmentRequestModel(string studentId, string givenName, string lastName, string reqQual, string dateApplied, string status)
         {
             this.StudentID = studentId;
             this.GivenName = givenName;
             this.LastName = lastName;
             this.RequestedQual = reqQual;
             this.DateApplied = dateApplied;
+            this.Status = status;
         }
     }
 }

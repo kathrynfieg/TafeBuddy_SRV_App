@@ -220,6 +220,40 @@
                             </StackPanel>
                         </ScrollViewer>
                     </controls:TabViewItem>
+                    <controls:TabViewItem Header="Parchment Requests" x:Name="parchmentReqTab" Visibility="Collapsed">
+                        <!--Parchment Requests-->
+                        <ScrollViewer HorizontalAlignment="Center" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
+                            <ListView ItemsSource="{x:Bind Requests}" x:DefaultBindMode="TwoWay">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Padding" Value="10" />
+                                        <Setter Property="Margin" Value="5" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="local1:ParchmentRequestModel">
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel Orientation="Vertical" Width="650">
+                                                <TextBlock FontWeight="Bold" Text="Requested Qualification:"/>
+                                                <TextBlock Text="{x:Bind RequestedQual}"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Width="100" FontWeight="Bold" Text="Date Applied: " />
+                                                    <TextBlock Text="{x:Bind DateApplied}" />
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Width="100" FontWeight="Bold" Text="Status: " />
+                                                    <TextBlock Text="{x:Bind Status}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel VerticalAlignment="Center">
+                                                <Button Content="Cancel" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </ScrollViewer>
+                    </controls:TabViewItem>
                 </controls:TabView>
             </StackPanel>
 
