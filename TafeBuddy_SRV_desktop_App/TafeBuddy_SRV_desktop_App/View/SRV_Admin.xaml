@@ -237,7 +237,7 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </controls:TabViewItem>
-                        <controls:TabViewItem Header="Parchment Request" x:Name="parchmentReqTab" Visibility="Collapsed">
+                        <controls:TabViewItem Header="Respond to Parchment Requests" x:Name="parchmentReqTab" Visibility="Collapsed" Background="#FFBEF0B7">
                             <!--Parchment Requests-->
                             <ScrollViewer HorizontalAlignment="Center" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
                                 <ListView ItemsSource="{x:Bind Requests}" x:DefaultBindMode="TwoWay">
