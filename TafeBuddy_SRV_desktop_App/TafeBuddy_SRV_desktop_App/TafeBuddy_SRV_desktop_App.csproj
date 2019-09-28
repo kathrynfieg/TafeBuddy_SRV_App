@@ -123,6 +123,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Competency.cs" />
+    <Compile Include="Model\ParchmentRequestModel.cs" />
     <Compile Include="Model\Qualification.cs" />
     <Compile Include="Model\StudentGrade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

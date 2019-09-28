@@ -6,52 +6,88 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:model="using:TafeBuddy_SRV_desktop_App.Model"
     Background="#FFBE1428">
 
     <Grid >
-        <StackPanel Margin="10" Width="500" Background="White" Height="600">
-            <TextBlock HorizontalAlignment="Center" Text="Parchment Requests" FontSize="24" Margin="0,10,0,10" />
-            <ScrollViewer Height="500">
-                <Grid ColumnSpacing="10" RowSpacing="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+        <Grid Margin="50" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-                    <!--0-->
-                    <TextBox Grid.Row="0" Grid.Column="0" IsReadOnly="True" Text="001061267" BorderBrush="#66FFFFFF" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="Diploma of Software Development" />
+            <StackPanel Grid.Row="0" Background="White">
+                <TextBlock HorizontalAlignment="Center" FontSize="25" Text="PARCHMENT REQUESTS" Padding="10"></TextBlock>
+            </StackPanel>
+            <!--<StackPanel Grid.Row="1" Background="LightBlue">-->
+            <controls:TabView x:Name="Tabs" Grid.Row="1">
+                <controls:TabViewItem Header="Pending" >
+                    <!--Pending Requests-->
+                    <ScrollViewer HorizontalAlignment="Center" VerticalScrollBarVisibility="Hidden" >
+                        <StackPanel >
+                            <StackPanel Orientation="Horizontal" Margin="10">
+                                <StackPanel Width="100">
+                                    <TextBlock FontWeight="Bold" Text="Student ID" />
+                                </StackPanel>
+                                <StackPanel Width="150">
+                                    <TextBlock FontWeight="Bold" Text="Student Name" />
+                                </StackPanel>
+                                <StackPanel Width="650">
+                                    <TextBlock FontWeight="Bold" Text="Requested Qualification" />
+                                </StackPanel>
+                                <StackPanel Width="130">
+                                    <TextBlock FontWeight="Bold" Text="Date Applied" />
+                                </StackPanel>
+                            </StackPanel>
+                            <ListView ItemsSource="{x:Bind PendingRequests}" x:DefaultBindMode="TwoWay" >
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Height" Value="20" />
+                                        <Setter Property="MinHeight" Value="20" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:ParchmentRequestModel">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Width="100">
+                                                    <TextBox Text="{x:Bind StudentID}" IsReadOnly="True" BorderThickness="0"/>
+                                                </StackPanel>
+                                                <StackPanel Width="150" Orientation="Horizontal">
+                                                    <TextBlock Text="{x:Bind GivenName}"/>
+                                                    <TextBlock Width="5" Text=" " />
+                                                    <TextBlock Text="{x:Bind LastName}"/>
+                                                </StackPanel>
+                                                <StackPanel Width="650">
+                                                    <TextBlock Text="{x:Bind RequestedQual}"/>
+                                                </StackPanel>
+                                                <StackPanel Width="130">
+                                                    <TextBlock Text="{x:Bind DateApplied}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <!-- accept/decline buttons-->
+                                            <StackPanel x:Name="acceptDenyBtn" Orientation="Horizontal" Spacing="5" Visibility="Collapsed">
+                                                <Button Width="100" Content="Accept"  />
+                                                <Button Width="100" Content="Decline" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
 
-                    <!--1-->
-                    <TextBox Grid.Row="1" Grid.Column="0" IsReadOnly="True" Text="123000090" BorderBrush="#66FFFFFF" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="Advanced Diploma of Network Security" />
 
-                    <!--2-->
-                    <TextBox Grid.Row="2" Grid.Column="0" IsReadOnly="True" Text="123000097" BorderBrush="#66FFFFFF" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="Certificate I in Information, Digital Media and Technology" />
+                </controls:TabViewItem>
+                <controls:TabViewItem Header="Accepted">
 
-                    <!--3-->
-                    <TextBox Grid.Row="3" Grid.Column="0" IsReadOnly="True" Text="123000093" BorderBrush="#66FFFFFF" />
-                    <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Text="Certificate III in Information, Digital Media and Technology" />
+                </controls:TabViewItem>
+                <controls:TabViewItem Header="Denied">
 
-                    <!--4-->
-                    <TextBox Grid.Row="4" Grid.Column="0" IsReadOnly="True" Text="123000098" BorderBrush="#66FFFFFF" />
-                    <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Text="Diploma of Website Development" />
+                </controls:TabViewItem>
+            </controls:TabView>
 
-                    <!--5-->
-                    <TextBox Grid.Row="5" Grid.Column="0" IsReadOnly="True" Text="123000091" BorderBrush="#66FFFFFF" />
-                    <TextBlock Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Text="Diploma of Website Development" />
-
-                </Grid>
-            </ScrollViewer>
-        </StackPanel>
+        </Grid>
     </Grid>
 </Page>
