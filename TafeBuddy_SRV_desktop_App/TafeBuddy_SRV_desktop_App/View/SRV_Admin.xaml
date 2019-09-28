@@ -156,7 +156,7 @@
                 <!--end of buttons stack panel-->
 
                 <controls:TabView x:Name="Tabs">
-                    <controls:TabViewItem Header="Competency Checklist">
+                    <controls:TabViewItem Header="Competency Checklist" x:Name="compChecklistTabViewItem">
                         <ScrollViewer HorizontalAlignment="Center" Width="800" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
                             <!--Height="400"-->
                             <!--competency checklist-->
@@ -237,7 +237,42 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </controls:TabViewItem>
-                </controls:TabView>
+                        <controls:TabViewItem Header="Parchment Request" x:Name="parchmentReqTab" Visibility="Collapsed">
+                            <!--Parchment Requests-->
+                            <ScrollViewer HorizontalAlignment="Center" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
+                                <ListView ItemsSource="{x:Bind Requests}" x:DefaultBindMode="TwoWay">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Padding" Value="10" />
+                                            <Setter Property="Margin" Value="5" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="local1:ParchmentRequestModel">
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical" Width="650">
+                                                    <TextBlock FontWeight="Bold" Text="Requested Qualification:"/>
+                                                    <TextBlock Text="{x:Bind RequestedQual}"/>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Width="100" FontWeight="Bold" Text="Date Applied: " />
+                                                        <TextBlock Text="{x:Bind DateApplied}" />
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Width="100" FontWeight="Bold" Text="Status: " />
+                                                        <TextBlock Text="{x:Bind Status}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Spacing="10">
+                                                    <Button Width="70" Content="Accept" />
+                                                    <Button Width="70" Content="Decline" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
+                        </controls:TabViewItem>
+                    </controls:TabView>
                 </StackPanel>
             </StackPanel>
 
