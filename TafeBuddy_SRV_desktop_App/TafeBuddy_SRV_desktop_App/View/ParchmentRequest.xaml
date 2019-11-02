@@ -51,7 +51,7 @@
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="Qualification Title" Margin="0,0,0,5" FontWeight="SemiBold"  />
-                        <ComboBox PlaceholderText="Qualification" x:Name="qualificationCmbbox" Width="600" />
+                        <ComboBox x:Name="qualificationCmbbox" Width="600" SelectionChanged="QualificationCmbbox_SelectionChanged" />
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="Name of Lecturer (Optional)" Margin="0,0,0,5" FontWeight="SemiBold"  />

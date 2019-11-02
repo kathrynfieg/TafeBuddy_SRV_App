@@ -23,9 +23,9 @@ namespace TafeBuddy_SRV_desktop_App.Model
             this.CompetencyType = competencyType;
         }
 
-        public bool IsDone(string studentID, Competency comp)
+        public string getCompetencyStatus(string studentID, Competency comp)
         {
-            bool isDone = false;
+            string status = "";
 
             // Creates the connection
             MySqlConnection conn = new MySqlConnection(App.connectionString);
@@ -56,18 +56,22 @@ namespace TafeBuddy_SRV_desktop_App.Model
                 //string subjectdesc = dr.GetString("SubjectDescription");
                 if (dr.IsDBNull(dr.GetOrdinal("Grade")))
                 {
-                    isDone = false;
+                    status = "Ongoing";
                 }
                 else if (dr.GetString("Grade") == "P" || dr.GetString("Grade") == "PA" || dr.GetString("Grade") == "C" || dr.GetString("Grade") == "D")
                 {
-                    isDone = true;
+                    status = "Completed";
+                }
+                else
+                {
+                    status = "Future";
                 }
             }
 
             // Close the connection
             conn.Close();
 
-            return isDone;
+            return status;
 
         }
     }

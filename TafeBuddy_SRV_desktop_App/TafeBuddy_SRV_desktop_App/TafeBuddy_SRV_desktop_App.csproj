@@ -123,6 +123,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Competency.cs" />
+    <Compile Include="Model\ParchmentRequestModel.cs" />
     <Compile Include="Model\Qualification.cs" />
     <Compile Include="Model\StudentGrade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -155,9 +156,30 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="ClassDiagram1.cd" />
     <None Include="TafeBuddy_SRV_desktop_App_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\ProfileImage\AlexWorrall.jpg" />
+    <Content Include="Assets\Images\ProfileImage\AlexZhao.jpg" />
+    <Content Include="Assets\Images\ProfileImage\BrentonMcKinlay.jpg" />
+    <Content Include="Assets\Images\ProfileImage\ErikJensen.jpg" />
+    <Content Include="Assets\Images\ProfileImage\GlennMcCallum.jpg" />
+    <Content Include="Assets\Images\ProfileImage\GregLynch.jpg" />
+    <Content Include="Assets\Images\ProfileImage\JamesCorbett.jpg" />
+    <Content Include="Assets\Images\ProfileImage\JulieRuiz.jpg" />
+    <Content Include="Assets\Images\ProfileImage\KarinaMiegel.jpg" />
+    <Content Include="Assets\Images\ProfileImage\KarynBeyne.jpg" />
+    <Content Include="Assets\Images\ProfileImage\KTLau.jpg" />
+    <Content Include="Assets\Images\ProfileImage\KymBond.jpg" />
+    <Content Include="Assets\Images\ProfileImage\MelissaHuikeshoven.jpg" />
+    <Content Include="Assets\Images\ProfileImage\MichelleMinkoff.jpg" />
+    <Content Include="Assets\Images\ProfileImage\PaulKasperski.jpg" />
+    <Content Include="Assets\Images\ProfileImage\RussellJames.jpg" />
+    <Content Include="Assets\Images\ProfileImage\SantiRuiz.jpg" />
+    <Content Include="Assets\Images\ProfileImage\StephenHindle.jpg" />
+    <Content Include="Assets\Images\ProfileImage\StuartMcIntyre.jpg" />
+    <Content Include="Assets\Images\ProfileImage\VickiThomas.jpg" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />

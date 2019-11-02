@@ -28,11 +28,11 @@
         <!--Main Stack Pannel-->
         <StackPanel>
             <!--Menu bar-->
-            <Windows10version1809:MenuBar>
+            <!--<Windows10version1809:MenuBar>
                 <MenuBarItem Title="File" />
                 <MenuBarItem Title="Edit" />
                 <MenuBarItem Title="View" />
-            </Windows10version1809:MenuBar>
+            </Windows10version1809:MenuBar>-->
             <!--End of menu bar-->
             <!--Header stack pannel-->
             <StackPanel Background="#FFBE1428" BorderThickness="0,0,0,3" BorderBrush="Black" Padding="10,5,10,5" >
@@ -106,7 +106,7 @@
                         <TextBox x:Name="studentEmailTxtbox"    Grid.Row="3" Grid.Column="1" Margin="0,0,0,4" Background="White" IsReadOnly="True"/>
                         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
                             <ComboBox x:Name="qualificationCmbbox"    Width="475" HorizontalAlignment="Left"  Background="White" SelectionChanged="QualificationCmbbox_SelectionChanged"/>
-                            <HyperlinkButton NavigateUri="https://www.tafesa.edu.au/PDF/courses/2020/TP00750/Program_Information_Document_Diploma_Programming_Version_181118.pdf"  Margin="10,0,0,0" ToolTipService.ToolTip="Additional Program Information">
+                            <HyperlinkButton x:Name="linkToMoreInfoHyperlink" Margin="10,0,0,0" ToolTipService.ToolTip="Additional Program Information">
                                 <Image Source="/Images/Icons/pdf.png" Height="25"/>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="lookupQualHyperlinkBtn" Margin="10,0,0,0" ToolTipService.ToolTip="Lookup different Qualification to see progress" Click="LookupQualHyperlinkBtn_Click">
@@ -156,7 +156,7 @@
                 <!--end of buttons stack panel-->
 
                 <controls:TabView x:Name="Tabs">
-                    <controls:TabViewItem Header="Competency Checklist">
+                    <controls:TabViewItem Header="Competency Checklist" x:Name="compChecklistTabViewItem">
                         <ScrollViewer HorizontalAlignment="Center" Width="800" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
                             <!--Height="400"-->
                             <!--competency checklist-->
@@ -237,7 +237,42 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </controls:TabViewItem>
-                </controls:TabView>
+                        <controls:TabViewItem Header="Respond to Parchment Requests" x:Name="parchmentReqTab" Visibility="Collapsed" Background="#FFBEF0B7">
+                            <!--Parchment Requests-->
+                            <ScrollViewer HorizontalAlignment="Center" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
+                                <ListView ItemsSource="{x:Bind Requests}" x:DefaultBindMode="TwoWay">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Padding" Value="10" />
+                                            <Setter Property="Margin" Value="5" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="local1:ParchmentRequestModel">
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical" Width="650">
+                                                    <TextBlock FontWeight="Bold" Text="Requested Qualification:"/>
+                                                    <TextBlock Text="{x:Bind RequestedQual}"/>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Width="100" FontWeight="Bold" Text="Date Applied: " />
+                                                        <TextBlock Text="{x:Bind DateApplied}" />
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Width="100" FontWeight="Bold" Text="Status: " />
+                                                        <TextBlock Text="{x:Bind Status}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Spacing="10">
+                                                    <Button Width="70" Content="Accept" />
+                                                    <Button Width="70" Content="Decline" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
+                        </controls:TabViewItem>
+                    </controls:TabView>
                 </StackPanel>
             </StackPanel>
 

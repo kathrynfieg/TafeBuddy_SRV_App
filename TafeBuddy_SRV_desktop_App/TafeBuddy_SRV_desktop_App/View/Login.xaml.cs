@@ -92,6 +92,7 @@ namespace TafeBuddy_SRV_desktop_App.View
                     App.userLogged_id = dr.GetString("StudentID");
                     App.userLogged_firstName = dr.GetString("GivenName");
                     App.userLogged_lastName = dr.GetString("LastName");
+                    App.userLogged_profileImage = dr.GetString("ProfileImage");
                 }
             }
             else
@@ -114,6 +115,7 @@ namespace TafeBuddy_SRV_desktop_App.View
                             App.userLogged_id = dr.GetString("LecturerID");
                             App.userLogged_firstName = dr.GetString("GivenName");
                             App.userLogged_lastName = dr.GetString("LastName");
+                            App.userLogged_profileImage = dr.GetString("ProfileImage");
                         }
                     }
                 }

@@ -35,6 +35,7 @@ namespace TafeBuddy_SRV_desktop_App.View
 
         private ObservableCollection<StudentGrade> Results = new ObservableCollection<StudentGrade>();
         private ObservableCollection<Competency> RequiredCompetencies = new ObservableCollection<Competency>();
+        private ObservableCollection<ParchmentRequestModel> Requests = new ObservableCollection<ParchmentRequestModel>();
 
         public SRV_Student()
         {
@@ -54,6 +55,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             PopulateUser();
             PopulateQualification();
             DisplayStudentResults(StudentID);
+            CheckForParchmentRequests();
         }
 
         /**
@@ -123,6 +125,7 @@ namespace TafeBuddy_SRV_desktop_App.View
 
                 qualificationCmbbox.Items.Add(qualification);
                 qualificationCmbbox.SelectedItem = qualificationCmbbox.Items[0];
+                
             }
 
             // Close the connection
@@ -191,7 +194,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             MySqlConnection conn = new MySqlConnection(App.connectionString);
 
             StringBuilder allCompSb = new StringBuilder();
-            allCompSb.Append("SELECT q.QualCode, q.NationalQualCode, q.TafeQualCode, q.QualName, c.TafeCompCode, c.NationalCompCode, c.CompetencyName, cq.CompTypeCode");
+            allCompSb.Append("SELECT q.QualCode, q.NationalQualCode, q.TafeQualCode, q.QualName, q.ProgramInformationDocument, c.TafeCompCode, c.NationalCompCode, c.CompetencyName, cq.CompTypeCode");
             allCompSb.Append(" FROM competency AS c INNER JOIN competency_qualification as cq");
             allCompSb.Append(" ON c.NationalCompCode = cq.NationalCompCode");
             allCompSb.Append(" INNER JOIN qualification AS q");
@@ -207,24 +210,110 @@ namespace TafeBuddy_SRV_desktop_App.View
 
             dr = command.ExecuteReader(); // Execute the command and attach to the reader
 
+            int totalUnits = 0;
+            int completedUnits = 0;
+            int ongoingUnits = 0;
+            int futureUnits = 0;
+
             // While there are rows in the read
             while (dr.Read())
             {
+                totalUnits++;
+
                 string tafeCompCode = dr.GetString("TafeCompCode");
                 string nationalCompCode = dr.GetString("NationalCompCode");
                 string competencyName = dr.GetString("CompetencyName");
                 string competencyType = dr.GetString("CompTypeCode");
                 Competency competency = new Competency(tafeCompCode, nationalCompCode, competencyName, competencyType);
 
-                // checks if a student has done the competency
-                competency.Done = competency.IsDone(StudentID, competency);
+                if ((competency.getCompetencyStatus(StudentID, competency)) == "Ongoing")
+                {
+                    ongoingUnits++;
+                }
+                else if ((competency.getCompetencyStatus(StudentID, competency)) == "Completed")
+                {
+                    completedUnits++;
+                    competency.Done = true;
+                }
+                else
+                {
+                    futureUnits++;
+                }
 
                 RequiredCompetencies.Add(competency);
+
+                // Calculates the Percentage
+                double percent = 0;
+                percent = ((double)completedUnits / (double)totalUnits);
+                progressPercent.Value = percent * 100;
+                txtProgressPercent.Text = percent.ToString("P0");
+
+                // Populates Number of units
+                totalunitsTxtBlock.Text = "Total Units: " + totalUnits.ToString();
+                completedUnitsTxtBlk.Text = "Completed: " + completedUnits.ToString();
+                ongoingUnisTxtblk.Text = "Ongoing: " + ongoingUnits.ToString();
+                futureUnitsTxtblk.Text = "Future: " + futureUnits.ToString();
+
+                // Sets Link to Program Information PDF Document
+                Uri uri = new Uri(dr.GetString("ProgramInformationDocument"));
+                linkToMoreInfoHyperlink.NavigateUri = uri;
 
             }
 
             // Close the connection
             conn.Close();
+
+        }
+
+        public void CheckForParchmentRequests()
+        {
+            // Creates the connection
+            MySqlConnection conn = new MySqlConnection(App.connectionString);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, q.TafeQualCode, q.NationalQualCode, q.QualName, pr.DateApplied, pr.status");
+            sb.Append(" FROM student s INNER JOIN parchment_request pr ON s.StudentID = pr.student_StudentID1");
+            sb.Append(" INNER JOIN qualification q ON q.QualCode = pr.qualification_QualCode");
+            sb.Append(" WHERE s.StudentID = '").Append(StudentID).Append("';");
+
+            // Creates the SQL command
+            MySqlCommand command = new MySqlCommand(sb.ToString(), conn);
+
+            MySqlDataReader dr; // Creates a reader to read the data
+
+            conn.Open(); // Open the connection
+
+            dr = command.ExecuteReader(); // Execute the command and attach to the reader
+
+            int noOfRequests = 0;
+
+            // While there are rows in the read            
+            while (dr.Read())
+            {
+                string studId = dr.GetString("StudentID");
+                string givenName = dr.GetString("GivenName");
+                string lastName = dr.GetString("LastName");
+                string reqQual = dr.GetString("NationalQualCode") + " " + dr.GetString("QualName");
+                string dateApplied = dr.GetString("DateApplied").ToString();
+                string status = dr.GetString("status");
+
+                noOfRequests++;
+
+                ParchmentRequestModel request = new ParchmentRequestModel(studId, givenName, lastName, reqQual, dateApplied, status);
+                Requests.Add(request);
+            }
+
+            conn.Close();
+
+            if (noOfRequests > 0)
+            {
+                parchmentReqTab.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                parchmentReqTab.Visibility = Visibility.Collapsed;
+            }
+
 
         }
 
@@ -249,7 +338,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 Frame frame = new Frame();
-                frame.Navigate(typeof(View.ParchmentRequest), null);
+                frame.Navigate(typeof(View.ParchmentRequest), new string[] { StudentID });
                 Window.Current.Content = frame;
                 // You have to activate the window in order to show it later.
                 Window.Current.Activate();

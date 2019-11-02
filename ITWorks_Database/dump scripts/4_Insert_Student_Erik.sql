@@ -22,7 +22,8 @@ INSERT INTO `db_tafebuddy`.`student_studyplan`
 `TermYearStart`,
 `EnrolmentType`)
 -- Erik Jensen
-VALUES ('000206449', 'D_SD15', 1, 2018, 'full time');
+VALUES ('000206449', 'D_SD15', 1, 2018, 'full time'),
+('000206449', 'C3_IDM15_PRG', 1, 2018, 'full time');
 
 
 /*

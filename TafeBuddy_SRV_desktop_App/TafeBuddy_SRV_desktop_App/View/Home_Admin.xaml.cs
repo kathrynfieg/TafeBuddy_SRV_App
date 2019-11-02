@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -38,6 +39,14 @@ namespace TafeBuddy_SRV_desktop_App.View
 
             // Show user logged in
             welcomeTxtBlock.Text = "Welcome, " + App.userLogged_firstName + " " + App.userLogged_lastName; // Show user logged
+            if (App.userLogged_profileImage != "")
+            {
+                userProfileImage.ProfilePicture = new BitmapImage(new Uri("ms-appx:///Assets" + App.userLogged_profileImage));
+            }
+            else
+            {
+                userProfileImage.DisplayName = App.userLogged_firstName + " " + App.userLogged_lastName;
+            }
             userNameTxtBlk.Text = App.userLogged_lastName.ToUpper() + ", " + App.userLogged_firstName;
             userIdTxtBlk.Text = App.userLogged_id;
         }
