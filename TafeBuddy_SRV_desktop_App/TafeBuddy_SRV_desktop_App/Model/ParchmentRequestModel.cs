@@ -8,6 +8,7 @@ namespace TafeBuddy_SRV_desktop_App.Model
 {
     public class ParchmentRequestModel
     {
+        public string RequestID;
         public string StudentID;
         public string GivenName;
         public string LastName;
@@ -15,8 +16,9 @@ namespace TafeBuddy_SRV_desktop_App.Model
         public string DateApplied;
         public string Status;
 
-        public ParchmentRequestModel(string studentId, string givenName, string lastName, string reqQual, string dateApplied, string status)
+        public ParchmentRequestModel(string requestID, string studentId, string givenName, string lastName, string reqQual, string dateApplied, string status)
         {
+            this.RequestID = requestID;
             this.StudentID = studentId;
             this.GivenName = givenName;
             this.LastName = lastName;
