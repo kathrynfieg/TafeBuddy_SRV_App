@@ -37,11 +37,11 @@
 
                         <!--username-->
                         <TextBlock x:Name="usertextBlock" TextWrapping="Wrap" Text="Username:"  Grid.Column="0" Grid.Row="0" Foreground="#FFFCF5F5" FontWeight="Bold"/>
-                        <TextBox x:Name="usernameTextBox" TextWrapping="Wrap" Text=""  Grid.Column="1" Grid.Row="0" Margin="0,0,0,10" PlaceholderText="someone@example.com" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False"  Background="White"/>
+                        <TextBox x:Name="usernameTextBox" TextWrapping="Wrap" Text=""  Grid.Column="1" Grid.Row="0" Margin="0,0,0,10" PlaceholderText="someone@example.com" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False"  Background="White" KeyDown="PasswordTextBox_KeyDown"/>
 
                         <!--password-->
                         <TextBlock x:Name="paswordtextBlock" TextWrapping="Wrap" Text="Password:" Grid.Column="0" Grid.Row="1" Foreground="#FFFCF9F9" FontWeight="Bold"/>
-                        <PasswordBox x:Name="passwordTextBox"  Grid.Column="1" Grid.Row="1" PlaceholderText="Password" Background="White"/>
+                        <PasswordBox x:Name="passwordTextBox"  Grid.Column="1" Grid.Row="1" PlaceholderText="Password" Background="White" KeyDown="PasswordTextBox_KeyDown"/>
                     </Grid>
                 </StackPanel>
 
