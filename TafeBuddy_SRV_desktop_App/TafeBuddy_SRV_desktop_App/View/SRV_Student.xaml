@@ -148,7 +148,7 @@
                 <!--end of buttons stack panel-->
 
                 <controls:TabView x:Name="Tabs">
-                    <controls:TabViewItem Header="Qualification Checklist">
+                    <controls:TabViewItem Header="Qualification Checklist" x:Name="checklistTab">
                         <ScrollViewer HorizontalAlignment="Center" Width="800" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
                             <!--Competency Checklist-->
                             <StackPanel>
@@ -255,7 +255,7 @@
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
-                                <Button Name="cancelRequestBtn" Content="Cancel Request" HorizontalAlignment="Center" IsEnabled="False" />
+                                <Button Name="cancelRequestBtn" Content="Cancel Request" HorizontalAlignment="Center" IsEnabled="False" Click="CancelRequestBtn_Click" />
                             </StackPanel>
                         </ScrollViewer>
                     </controls:TabViewItem>
