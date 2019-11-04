@@ -69,7 +69,7 @@
             
             <!--view all parchment request stack panel-->
             <StackPanel Width="1000" >
-                <HyperlinkButton x:Name="viewAllParchmentRequetsBtn" Content="View all Parchment Requests (0)" HorizontalAlignment="Right" Margin="0,0,0,-30" Visibility="Visible" Click="ViewAllParchmentRequetsBtn_Click" />
+                <HyperlinkButton x:Name="viewAllParchmentRequetsBtn" Content="View all Parchment Requests" HorizontalAlignment="Right" Margin="0,0,0,-30" Visibility="Visible" Click="ViewAllParchmentRequetsBtn_Click" />
             </StackPanel><!--end of view all parchment request stack panel-->
             
 
