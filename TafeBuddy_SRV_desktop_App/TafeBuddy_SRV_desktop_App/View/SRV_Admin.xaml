@@ -240,36 +240,38 @@
                         <controls:TabViewItem Header="Respond to Parchment Requests" x:Name="parchmentReqTab" Visibility="Collapsed" Background="#FFBEF0B7">
                             <!--Parchment Requests-->
                             <ScrollViewer HorizontalAlignment="Center" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
-                                <ListView ItemsSource="{x:Bind Requests}" x:DefaultBindMode="TwoWay">
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="Padding" Value="10" />
-                                            <Setter Property="Margin" Value="5" />
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="local1:ParchmentRequestModel">
-                                            <StackPanel Orientation="Horizontal">
-                                                <StackPanel Orientation="Vertical" Width="650">
-                                                    <TextBlock FontWeight="Bold" Text="Requested Qualification:"/>
-                                                    <TextBlock Text="{x:Bind RequestedQual}"/>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Width="100" FontWeight="Bold" Text="Date Applied: " />
-                                                        <TextBlock Text="{x:Bind DateApplied}" />
+                                <StackPanel>
+                                    <ListView ItemsSource="{x:Bind Requests}" x:DefaultBindMode="TwoWay">
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="Padding" Value="10" />
+                                                <Setter Property="Margin" Value="5" />
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="local1:ParchmentRequestModel">
+                                                <ListViewItem Name="parchmentReqListViewItem" Tapped="ParchmentReqListViewItem_Tapped">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock FontWeight="Bold" Text="Requested Qualification:"/>
+                                                        <TextBlock Text="{x:Bind RequestedQual}"/>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Width="100" FontWeight="Bold" Text="Date Applied: " />
+                                                            <TextBlock Text="{x:Bind DateApplied}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Width="100" FontWeight="Bold" Text="Status: " />
+                                                            <TextBlock Text="{x:Bind Status}" />
+                                                        </StackPanel>
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Width="100" FontWeight="Bold" Text="Status: " />
-                                                        <TextBlock Text="{x:Bind Status}" />
-                                                    </StackPanel>
-                                                </StackPanel>
-                                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Spacing="10">
-                                                    <Button Width="70" Content="Accept" />
-                                                    <Button Width="70" Content="Decline" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
+                                                </ListViewItem>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <StackPanel Orientation="Horizontal" Spacing="10" Padding="10" HorizontalAlignment="Center">
+                                        <Button Content="Accept" Width="150" Name="acceptReqBtn" IsEnabled="False" Click="AcceptReqBtn_Click"/>
+                                        <Button Content="Deny" Width="150" Name="denyReqBtn" IsEnabled="False" Click="DenyReqBtn_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
                             </ScrollViewer>
                         </controls:TabViewItem>
                     </controls:TabView>
