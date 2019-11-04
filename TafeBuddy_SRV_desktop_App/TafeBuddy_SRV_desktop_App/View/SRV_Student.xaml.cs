@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -381,6 +382,15 @@ namespace TafeBuddy_SRV_desktop_App.View
         private void HomeBtnAppBar_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(View.Home));
+        }
+
+        private void ParchmentReqListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var fe = sender as FrameworkElement;
+            ParchmentRequestModel requestSelected = fe.DataContext as ParchmentRequestModel;
+            string requestNo = requestSelected.RequestID;
+            Debug.WriteLine("requestNo = " + requestNo);
+            cancelRequestBtn.IsEnabled = true;
         }
     }
     
