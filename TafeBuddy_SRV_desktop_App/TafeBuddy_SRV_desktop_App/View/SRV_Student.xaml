@@ -31,11 +31,11 @@
         <!--Main Stack Pannel-->
         <StackPanel>
             <!--Menu bar-->
-            <!--<Windows10version1809:MenuBar Height="35">
+            <Windows10version1809:MenuBar Height="35">
                 <MenuBarItem Title="File" />
                 <MenuBarItem Title="Edit" />
                 <MenuBarItem Title="View" />
-            </Windows10version1809:MenuBar>-->
+            </Windows10version1809:MenuBar>
             <!--End of menu bar-->
 
             <!--Header stack pannel-->
@@ -148,16 +148,24 @@
                 <!--end of buttons stack panel-->
 
                 <controls:TabView x:Name="Tabs">
-                    <controls:TabViewItem Header="Qualification Checklist">
+                    <controls:TabViewItem Header="Qualification Checklist" x:Name="checklistTab">
                         <ScrollViewer HorizontalAlignment="Center" Width="800" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
                             <!--Competency Checklist-->
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Background="#FFBE1428" Padding="5,5,5,5">
                                     <StackPanel Width="30"></StackPanel>
-                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="National Code"  /></StackPanel>
-                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Tafe Code"  /></StackPanel>                                    
-                                    <StackPanel Width="500"><TextBlock FontWeight="Bold" Foreground="White" Text="Competency Description" /></StackPanel>
-                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Type"  /></StackPanel>
+                                    <StackPanel Width="100">
+                                        <TextBlock FontWeight="Bold" Foreground="White" Text="National Code"  />
+                                    </StackPanel>
+                                    <StackPanel Width="100">
+                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Tafe Code"  />
+                                    </StackPanel>
+                                    <StackPanel Width="500">
+                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Competency Description" />
+                                    </StackPanel>
+                                    <StackPanel Width="100">
+                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Type"  />
+                                    </StackPanel>
                                 </StackPanel>
                                 <ListView ItemsSource="{x:Bind RequiredCompetencies}" x:DefaultBindMode="TwoWay">
                                     <ListView.ItemContainerStyle>
@@ -169,11 +177,21 @@
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="local1:Competency">
                                             <StackPanel Orientation="Horizontal">
-                                                <StackPanel Width="30"><CheckBox IsChecked="{x:Bind Done}" IsHitTestVisible="False" Height="15"></CheckBox></StackPanel>
-                                                <StackPanel Width="100"><TextBlock Text="{x:Bind NationalCompCode}" /></StackPanel>
-                                                <StackPanel Width="100"><TextBlock Text="{x:Bind TafeCompCode}" /></StackPanel>                                                
-                                                <StackPanel Width="500"><TextBlock Text="{x:Bind CompetencyName}" /></StackPanel>
-                                                <StackPanel Width="100"><TextBlock Text="{x:Bind CompetencyType}" /></StackPanel>
+                                                <StackPanel Width="30">
+                                                    <CheckBox IsChecked="{x:Bind Done}" IsHitTestVisible="False" Height="15"></CheckBox>
+                                                </StackPanel>
+                                                <StackPanel Width="100">
+                                                    <TextBlock Text="{x:Bind NationalCompCode}" />
+                                                </StackPanel>
+                                                <StackPanel Width="100">
+                                                    <TextBlock Text="{x:Bind TafeCompCode}" />
+                                                </StackPanel>
+                                                <StackPanel Width="500">
+                                                    <TextBlock Text="{x:Bind CompetencyName}" />
+                                                </StackPanel>
+                                                <StackPanel Width="100">
+                                                    <TextBlock Text="{x:Bind CompetencyType}" />
+                                                </StackPanel>
                                             </StackPanel>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
@@ -186,10 +204,18 @@
                             <!--Subject Results-->
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Background="#FFBE1428" Padding="5,5,5,5">
-                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Comp Code"  /></StackPanel>
-                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Subject Code"  /></StackPanel>
-                                    <StackPanel Width="300"><TextBlock FontWeight="Bold" Foreground="White" Text="Subject Description" /></StackPanel>
-                                    <StackPanel Width="100"><TextBlock FontWeight="Bold" Foreground="White" Text="Result" /></StackPanel>
+                                    <StackPanel Width="100">
+                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Comp Code"  />
+                                    </StackPanel>
+                                    <StackPanel Width="100">
+                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Subject Code"  />
+                                    </StackPanel>
+                                    <StackPanel Width="300">
+                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Subject Description" />
+                                    </StackPanel>
+                                    <StackPanel Width="100">
+                                        <TextBlock FontWeight="Bold" Foreground="White" Text="Result" />
+                                    </StackPanel>
                                 </StackPanel>
                                 <ListView ItemsSource="{x:Bind Results}" x:DefaultBindMode="TwoWay">
                                     <ListView.ItemContainerStyle>
@@ -223,35 +249,40 @@
                     <controls:TabViewItem Header="Parchment Requests" x:Name="parchmentReqTab" Visibility="Collapsed">
                         <!--Parchment Requests-->
                         <ScrollViewer HorizontalAlignment="Center" Height="300"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,10" >
-                            <ListView ItemsSource="{x:Bind Requests}" x:DefaultBindMode="TwoWay">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="Padding" Value="10" />
-                                        <Setter Property="Margin" Value="5" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="local1:ParchmentRequestModel">
-                                        <StackPanel Orientation="Horizontal">
-                                            <StackPanel Orientation="Vertical" Width="650">
-                                                <TextBlock FontWeight="Bold" Text="Requested Qualification:"/>
-                                                <TextBlock Text="{x:Bind RequestedQual}"/>
+                            <StackPanel>
+                                <ListView ItemsSource="{x:Bind Requests}" x:DefaultBindMode="TwoWay">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Padding" Value="10" />
+                                            <Setter Property="Margin" Value="5" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="local1:ParchmentRequestModel">
+                                            <ListViewItem Name="ParchmentReqListViewItem" Tapped="ParchmentReqListViewItem_Tapped">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Width="100" FontWeight="Bold" Text="Date Applied: " />
-                                                    <TextBlock Text="{x:Bind DateApplied}" />
+                                                    <StackPanel Orientation="Vertical" Width="650">
+                                                        <TextBlock FontWeight="Bold" Text="Requested Qualification:"/>
+                                                        <TextBlock Text="{x:Bind RequestedQual}"/>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Width="100" FontWeight="Bold" Text="Date Applied: " />
+                                                            <TextBlock Text="{x:Bind DateApplied}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Width="100" FontWeight="Bold" Text="Status: " />
+                                                            <TextBlock Text="{x:Bind Status}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel VerticalAlignment="Center">
+                                                        <!--<Button Content="Cancel" />-->
+                                                    </StackPanel>
                                                 </StackPanel>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Width="100" FontWeight="Bold" Text="Status: " />
-                                                    <TextBlock Text="{x:Bind Status}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                            <StackPanel VerticalAlignment="Center">
-                                                <Button Content="Cancel" />
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                            </ListViewItem>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <Button Name="cancelRequestBtn" Content="Cancel Request" HorizontalAlignment="Center" IsEnabled="False" Click="CancelRequestBtn_Click" />
+                            </StackPanel>
                         </ScrollViewer>
                     </controls:TabViewItem>
                 </controls:TabView>

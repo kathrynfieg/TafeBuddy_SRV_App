@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,6 +13,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -32,6 +34,9 @@ namespace TafeBuddy_SRV_desktop_App.View
     {
         private string User = "";
         private static string StudentID;
+
+        string requestNo = "";
+        int noOfRequests = 0;
 
         private ObservableCollection<StudentGrade> Results = new ObservableCollection<StudentGrade>();
         private ObservableCollection<Competency> RequiredCompetencies = new ObservableCollection<Competency>();
@@ -267,11 +272,14 @@ namespace TafeBuddy_SRV_desktop_App.View
 
         public void CheckForParchmentRequests()
         {
+            //clear parchment request
+            Requests.Clear();
+
             // Creates the connection
             MySqlConnection conn = new MySqlConnection(App.connectionString);
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, q.TafeQualCode, q.NationalQualCode, q.QualName, pr.DateApplied, pr.status");
+            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, q.TafeQualCode, q.NationalQualCode, q.QualName, pr.DateApplied, pr.status, pr.parchmentRequestNo");
             sb.Append(" FROM student s INNER JOIN parchment_request pr ON s.StudentID = pr.student_StudentID1");
             sb.Append(" INNER JOIN qualification q ON q.QualCode = pr.qualification_QualCode");
             sb.Append(" WHERE s.StudentID = '").Append(StudentID).Append("';");
@@ -290,6 +298,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             // While there are rows in the read            
             while (dr.Read())
             {
+                string requestID = dr.GetString("parchmentRequestNo");
                 string studId = dr.GetString("StudentID");
                 string givenName = dr.GetString("GivenName");
                 string lastName = dr.GetString("LastName");
@@ -299,7 +308,7 @@ namespace TafeBuddy_SRV_desktop_App.View
 
                 noOfRequests++;
 
-                ParchmentRequestModel request = new ParchmentRequestModel(studId, givenName, lastName, reqQual, dateApplied, status);
+                ParchmentRequestModel request = new ParchmentRequestModel(requestID, studId, givenName, lastName, reqQual, dateApplied, status);
                 Requests.Add(request);
             }
 
@@ -315,6 +324,29 @@ namespace TafeBuddy_SRV_desktop_App.View
             }
 
 
+        }
+
+        public void cancelParchmentRequest(string parchmentRequestNo)
+        {
+            // Creates the connection
+            MySqlConnection conn = new MySqlConnection(App.connectionString);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("DELETE FROM parchment_request WHERE parchmentRequestNo = '").Append(parchmentRequestNo).Append("';");
+
+            // Creates the SQL command
+            MySqlCommand command = new MySqlCommand(sb.ToString(), conn);
+
+            MySqlDataReader dr; // Creates a reader to read the data
+
+            conn.Open(); // Open the connection
+
+            dr = command.ExecuteReader(); // Execute the command and attach to the reader
+
+            // While there are rows in the read            
+            while (dr.Read()) { }
+
+            conn.Close();
         }
 
         /**
@@ -381,7 +413,58 @@ namespace TafeBuddy_SRV_desktop_App.View
         {
             this.Frame.Navigate(typeof(View.Home));
         }
+
+        private void ParchmentReqListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var fe = sender as FrameworkElement;
+            ParchmentRequestModel requestSelected = fe.DataContext as ParchmentRequestModel;
+            requestNo = requestSelected.RequestID;
+            Debug.WriteLine("requestNo = " + requestNo);
+            cancelRequestBtn.IsEnabled = true;
+        }
+
+        private async void CancelRequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var title = "Cancel Parchment Request";
+            var content = "Are you sure you want to Cancel your Parchment Request?";
+
+            var yesCommand = new UICommand("Yes");
+            var cancelCommand = new UICommand("No");
+
+            var dialog = new MessageDialog(content, title);
+            dialog.Options = MessageDialogOptions.None;
+            dialog.Commands.Add(yesCommand);
+
+            dialog.DefaultCommandIndex = 0;
+            dialog.CancelCommandIndex = 0;
+
+
+            if (cancelCommand != null)
+            {
+                dialog.Commands.Add(cancelCommand);
+                dialog.CancelCommandIndex = (uint)dialog.Commands.Count - 1;
+            }
+
+            var command = await dialog.ShowAsync();
+
+            if (command == yesCommand)
+            {
+                cancelParchmentRequest(requestNo);
+                CheckForParchmentRequests();
+                cancelRequestBtn.IsEnabled = false;
+                //noOfRequests--;
+                if (noOfRequests == 0)
+                {
+                    parchmentReqTab.Visibility = Visibility.Collapsed;
+                    checklistTab.IsSelected = true;
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
     }
-    
+
 
 }

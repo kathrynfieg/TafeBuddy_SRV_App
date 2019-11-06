@@ -206,7 +206,6 @@ namespace TafeBuddy_SRV_desktop_App.View
             else
             {
                 // handle cancel command
-                //update parchment_request set parchment_request.status = "canceled" where parchment_request.parchmentRequestNo = 5;
             }
         }
 

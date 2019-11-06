@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -33,6 +34,8 @@ namespace TafeBuddy_SRV_desktop_App.View
     {
         private static string User;
         private static string StudentID;
+
+        string requestNo = "";
 
         private ObservableCollection<StudentGrade> Results = new ObservableCollection<StudentGrade>();
         private ObservableCollection<Competency> RequiredCompetencies = new ObservableCollection<Competency>();
@@ -289,7 +292,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             MySqlConnection conn = new MySqlConnection(App.connectionString);
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, q.TafeQualCode, q.NationalQualCode, q.QualName, pr.DateApplied, pr.status");
+            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, q.TafeQualCode, q.NationalQualCode, q.QualName, pr.DateApplied, pr.status, pr.parchmentRequestNo");
             sb.Append(" FROM student s INNER JOIN parchment_request pr ON s.StudentID = pr.student_StudentID1");
             sb.Append(" INNER JOIN qualification q ON q.QualCode = pr.qualification_QualCode");
             sb.Append(" WHERE s.StudentID = '").Append(StudentID).Append("';");
@@ -308,6 +311,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             // While there are rows in the read            
             while (dr.Read())
             {
+                string requestID = dr.GetString("parchmentRequestNo");
                 string studId = dr.GetString("StudentID");
                 string givenName = dr.GetString("GivenName");
                 string lastName = dr.GetString("LastName");
@@ -317,7 +321,7 @@ namespace TafeBuddy_SRV_desktop_App.View
 
                 noOfRequests++;
 
-                ParchmentRequestModel request = new ParchmentRequestModel(studId, givenName, lastName, reqQual, dateApplied, status);
+                ParchmentRequestModel request = new ParchmentRequestModel(requestID, studId, givenName, lastName, reqQual, dateApplied, status);
                 Requests.Add(request);
             }
 
@@ -334,6 +338,54 @@ namespace TafeBuddy_SRV_desktop_App.View
             }
 
 
+        }
+
+        public void DenyParchmentRequest(string parchementNo)
+        {
+            // Creates the connection
+            MySqlConnection conn = new MySqlConnection(App.connectionString);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("UPDATE parchment_request SET status = 'Denied' WHERE parchmentRequestNo = ").Append(parchementNo).Append(";");
+
+            // Creates the SQL command
+            MySqlCommand command = new MySqlCommand(sb.ToString(), conn);
+
+            MySqlDataReader dr; // Creates a reader to read the data
+
+            conn.Open(); // Open the connection
+
+            dr = command.ExecuteReader(); // Execute the command and attach to the reader
+
+            // While there are rows in the read
+            while (dr.Read()) { }
+
+            // Close the connection
+            conn.Close();
+        }
+
+        public void AcceptParchmentRequest(string parchementNo)
+        {
+            // Creates the connection
+            MySqlConnection conn = new MySqlConnection(App.connectionString);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("UPDATE parchment_request SET status = 'Accepted' WHERE parchmentRequestNo = ").Append(parchementNo).Append(";");
+
+            // Creates the SQL command
+            MySqlCommand command = new MySqlCommand(sb.ToString(), conn);
+
+            MySqlDataReader dr; // Creates a reader to read the data
+
+            conn.Open(); // Open the connection
+
+            dr = command.ExecuteReader(); // Execute the command and attach to the reader
+
+            // While there are rows in the read
+            while (dr.Read()) { }
+
+            // Close the connection
+            conn.Close();
         }
 
         public void ClearFields()
@@ -498,6 +550,33 @@ namespace TafeBuddy_SRV_desktop_App.View
         private void HomeBtnAppBar_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(View.Home_Admin));
+        }
+
+        private void ParchmentReqListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Debug.WriteLine("test tap");
+            var fe = sender as FrameworkElement;
+            ParchmentRequestModel requestSelected = fe.DataContext as ParchmentRequestModel;
+            requestNo = requestSelected.RequestID;
+            Debug.WriteLine(requestNo);
+            acceptReqBtn.IsEnabled = true;
+            denyReqBtn.IsEnabled = true;
+        }
+
+        private void AcceptReqBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AcceptParchmentRequest(requestNo);
+            CheckForParchmentRequests();
+            acceptReqBtn.IsEnabled = false;
+            denyReqBtn.IsEnabled = false;
+        }
+
+        private void DenyReqBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DenyParchmentRequest(requestNo);
+            CheckForParchmentRequests();
+            acceptReqBtn.IsEnabled = false;
+            denyReqBtn.IsEnabled = false;
         }
     }
 }

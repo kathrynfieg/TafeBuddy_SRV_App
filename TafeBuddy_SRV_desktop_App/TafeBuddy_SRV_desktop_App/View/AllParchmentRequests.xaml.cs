@@ -57,7 +57,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             MySqlConnection conn = new MySqlConnection(App.connectionString);
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, q.NationalQualCode, q.QualName, pr.DateApplied, pr.status");
+            sb.Append("SELECT s.StudentID, s.GivenName, s.LastName, q.NationalQualCode, q.QualName, pr.DateApplied, pr.status, pr.parchmentRequestNo");
             sb.Append(" FROM student s INNER JOIN parchment_request pr ON s.StudentID = pr.student_StudentID1");
             sb.Append(" INNER JOIN qualification q ON q.QualCode = pr.qualification_QualCode");
             sb.Append(" WHERE pr.status = 'pending'");
@@ -77,6 +77,7 @@ namespace TafeBuddy_SRV_desktop_App.View
             while (dr.Read())
             {
                 // string subjectdesc = dr.GetString("SubjectDescription");
+                string requestID = dr.GetString("parchmentRequestNo");
                 string studId = dr.GetString("StudentID");
                 string givenName = dr.GetString("GivenName");
                 string lastName = dr.GetString("LastName");
@@ -86,7 +87,7 @@ namespace TafeBuddy_SRV_desktop_App.View
 
                 pendingRequests++;
 
-                ParchmentRequestModel request = new ParchmentRequestModel(studId, givenName, lastName, reqQual, dateApplied, status);
+                ParchmentRequestModel request = new ParchmentRequestModel(requestID, studId, givenName, lastName, reqQual, dateApplied, status);
                 PendingRequests.Add(request);
 
             }

@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -176,5 +177,61 @@ namespace TafeBuddy_SRV_desktop_App.View
 
         }
 
+        private static bool IsEnterKeyPressed()
+        {
+            var enterState = CoreWindow.GetForCurrentThread().GetKeyState(Windows.System.VirtualKey.Enter);
+            return (enterState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+        }
+
+        private async void PasswordTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (IsEnterKeyPressed())
+            {
+                MessageDialog msg;
+                if (String.IsNullOrEmpty(usernameTextBox.Text) && String.IsNullOrEmpty(passwordTextBox.Password))
+                {
+                    msg = new MessageDialog("Please enter Username and Password");
+                    await msg.ShowAsync();
+                    usernameTextBox.Focus(FocusState.Programmatic);
+                    return;
+                }
+                else if (String.IsNullOrEmpty(usernameTextBox.Text))
+                {
+                    msg = new MessageDialog("Please Enter Username");
+                    await msg.ShowAsync();
+                    usernameTextBox.Focus(FocusState.Programmatic);
+                    return;
+                }
+                else if (String.IsNullOrEmpty(passwordTextBox.Password))
+                {
+                    msg = new MessageDialog("Please Enter Password");
+                    await msg.ShowAsync();
+                    passwordTextBox.Focus(FocusState.Programmatic);
+                    return;
+                }
+
+                string user = usernameTextBox.Text;
+                string pass = passwordTextBox.Password;
+
+                UserType result = LoginUser(user, pass);
+
+                if (result == UserType.Student)
+                {
+                    this.Frame.Navigate(typeof(View.Home));
+                }
+                else if (result == UserType.Staff)
+                {
+                    this.Frame.Navigate(typeof(View.Home_Admin));
+                }
+                else
+                {
+                    msg = new MessageDialog("Incorrect Login Details. Please Try again.");
+                    await msg.ShowAsync();
+                    usernameTextBox.Focus(FocusState.Programmatic);
+                    return;
+                }
+            }
+
+        }
     }
 }
