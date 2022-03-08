@@ -1,6 +1,10 @@
 # TafeBuddy
 
-Tafe Buddy is an online 
+TAFE SA - anytime, anywhere. Tafe Buddy is an application developed for students of TAFE SA and allows them to connect to a range of services and resources relevant to their studies.
+
+What's New:
+
+Introducing the Students Results View (SRV)! 
 
 ## Students Results View (SRV)
 
